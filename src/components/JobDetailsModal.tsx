@@ -96,12 +96,12 @@ export const JobDetailsModal: React.FC<JobDetailsModalProps> = ({
         {/* Modal Scrollable Body */}
         <div className="p-6 overflow-y-auto space-y-6">
           {/* Attribution Notice */}
-          <div className="p-3.5 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-950 text-xs flex items-start gap-2.5">
+          <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 text-xs flex items-start gap-2.5">
             <ShieldCheck className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
             <div>
-              <p className="font-semibold">Genuine Provider Opportunity</p>
-              <p className="text-indigo-800/90 mt-0.5 leading-relaxed">
-                This listing was retrieved directly from <strong>{job.sourceAttribution}</strong>. To apply, click the button below to visit the official employer application page.
+              <p className="font-semibold text-slate-900">Verified Job Opportunity</p>
+              <p className="text-slate-600 mt-0.5 leading-relaxed">
+                Indexed from <strong>{job.sourceAttribution}</strong>. Clicking "Apply on Official Portal" redirects directly to the employer or partner application website.
               </p>
             </div>
           </div>

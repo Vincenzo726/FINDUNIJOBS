@@ -26,6 +26,8 @@ function MainAppContent() {
   const [dateRange, setDateRange] = useState('all');
   const [level, setLevel] = useState('All Levels');
   const [remoteOnly, setRemoteOnly] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [sortBy, setSortBy] = useState('newest');
   const [page, setPage] = useState(1);
 
   // Data states
@@ -87,7 +89,7 @@ function MainAppContent() {
       if (location && location !== 'All Locations') params.append('location', location);
       if (remoteOnly) params.append('remoteOnly', 'true');
       params.append('page', String(page));
-      params.append('limit', '12');
+      params.append('limit', '24');
 
       const res = await fetch(`/api/jobs?${params.toString()}`);
       if (!res.ok) throw new Error('Failed to fetch real jobs feed');
@@ -118,8 +120,61 @@ function MainAppContent() {
     setDateRange('all');
     setLevel('All Levels');
     setRemoteOnly(false);
+    setSelectedCategory('all');
+    setSortBy('newest');
     setPage(1);
   };
+
+  // Filter and sort jobs based on UI taxonomy and level
+  const displayedJobs = React.useMemo(() => {
+    let result = [...jobs];
+
+    // Category filter
+    if (selectedCategory !== 'all') {
+      const categoryKeywordsMap: Record<string, string[]> = {
+        tech: ['software', 'developer', 'engineer', 'frontend', 'backend', 'fullstack', 'react', 'python', 'node', 'javascript', 'devops'],
+        data: ['data', 'analyst', 'sql', 'machine learning', 'bi', 'analytics', 'tableau'],
+        finance: ['finance', 'accounting', 'auditor', 'fintech', 'tax', 'accountant', 'banking'],
+        grc: ['compliance', 'risk', 'grc', 'security', 'audit', 'legal', 'soc 2', 'gdpr'],
+        product: ['product', 'design', 'ui', 'ux', 'marketing', 'content', 'growth', 'sales'],
+        ops: ['operations', 'admin', 'hr', 'coordinator', 'recruiter', 'manager'],
+      };
+      const kws = categoryKeywordsMap[selectedCategory] || [];
+      if (kws.length > 0) {
+        result = result.filter((j) => {
+          const text = `${j.title} ${j.description} ${j.skills.join(' ')}`.toLowerCase();
+          return kws.some((kw) => text.includes(kw));
+        });
+      }
+    }
+
+    // Level filter
+    if (level !== 'All Levels') {
+      const lvl = level.toLowerCase();
+      result = result.filter((j) => {
+        const text = `${j.title} ${j.description} ${j.employmentType}`.toLowerCase();
+        if (lvl.includes('entry') || lvl.includes('graduate')) {
+          return text.includes('entry') || text.includes('junior') || text.includes('graduate') || text.includes('associate');
+        }
+        if (lvl.includes('mid')) {
+          return text.includes('mid') || (!text.includes('senior') && !text.includes('director') && !text.includes('lead'));
+        }
+        if (lvl.includes('senior')) {
+          return text.includes('senior') || text.includes('lead') || text.includes('principal') || text.includes('manager');
+        }
+        return true;
+      });
+    }
+
+    // Sort
+    if (sortBy === 'newest') {
+      result.sort((a, b) => new Date(b.publishedAt || 0).getTime() - new Date(a.publishedAt || 0).getTime());
+    } else if (sortBy === 'oldest') {
+      result.sort((a, b) => new Date(a.publishedAt || 0).getTime() - new Date(b.publishedAt || 0).getTime());
+    }
+
+    return result;
+  }, [jobs, selectedCategory, level, sortBy]);
 
   return (
     <div className="min-h-screen bg-slate-50/50 flex flex-col font-sans text-slate-800 antialiased selection:bg-indigo-100 selection:text-indigo-900">
@@ -160,36 +215,40 @@ function MainAppContent() {
                 fetchJobs();
               }}
               totalJobs={totalJobs}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={(cat) => {
+                setSelectedCategory(cat);
+                setPage(1);
+              }}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+              jobs={jobs}
             />
 
-            {/* Provider Integration Status Strip */}
+            {/* Live Feed Status Strip */}
             <div className="max-w-5xl mx-auto px-4 sm:px-6 mt-4">
               <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-xl bg-white border border-slate-200/80 text-[11px] text-slate-500 shadow-2xs">
                 <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="font-semibold text-slate-700">Jobicy Remote Feed: Active</span>
-                  </div>
+                  {providersStatus.jobicy?.connected && (
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className="font-semibold text-slate-700">Active Source: Jobicy Remote Jobs</span>
+                    </div>
+                  )}
 
-                  <span className="text-slate-300">|</span>
-
-                  <div className="flex items-center gap-1.5">
-                    <span
-                      className={`w-2 h-2 rounded-full ${
-                        providersStatus.jooble?.configured ? 'bg-emerald-500' : 'bg-amber-400'
-                      }`}
-                    />
-                    <span>
-                      Jooble Nigeria:{' '}
-                      {providersStatus.jooble?.configured
-                        ? 'Connected'
-                        : 'Setup Key in Secrets (ng.jooble.org)'}
-                    </span>
-                  </div>
+                  {providersStatus.jooble?.configured && providersStatus.jooble?.connected && (
+                    <>
+                      <span className="text-slate-300">|</span>
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                        <span className="font-semibold text-slate-700">Jooble Nigeria Feed</span>
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 <div className="text-indigo-600 font-medium">
-                  {totalJobs} Live Real Vacancies Indexed
+                  {totalJobs > 0 ? `${totalJobs} Live Opportunities Available` : 'Searching Active Feeds...'}
                 </div>
               </div>
             </div>
@@ -199,15 +258,15 @@ function MainAppContent() {
               <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 mb-5">
                 <div className="flex items-center gap-2">
                   <span className="text-xs sm:text-sm font-bold text-slate-900">
-                    Showing {jobs.length > 0 ? (page - 1) * 12 + 1 : 0} -{' '}
-                    {Math.min(page * 12, totalJobs)} of {totalJobs} real opportunities
+                    Showing {displayedJobs.length > 0 ? (page - 1) * 12 + 1 : 0} -{' '}
+                    {Math.min(page * 12, displayedJobs.length)} of {displayedJobs.length} opportunities
                   </span>
                   {isLoadingJobs && (
                     <RefreshCw className="w-3.5 h-3.5 text-indigo-600 animate-spin" />
                   )}
                 </div>
 
-                {(keyword || location !== 'All Locations' || remoteOnly) && (
+                {(keyword || location !== 'All Locations' || remoteOnly || selectedCategory !== 'all' || level !== 'All Levels') && (
                   <button
                     onClick={resetFilters}
                     className="inline-flex items-center gap-1 text-xs text-indigo-600 hover:text-indigo-800 font-semibold cursor-pointer"
@@ -222,28 +281,28 @@ function MainAppContent() {
                 <div className="py-20 text-center">
                   <RefreshCw className="w-8 h-8 text-indigo-600 animate-spin mx-auto mb-3" />
                   <p className="text-sm font-semibold text-slate-700">
-                    Fetching live vacancies from real job APIs...
+                    Loading job opportunities...
                   </p>
                 </div>
-              ) : jobs.length === 0 ? (
+              ) : displayedJobs.length === 0 ? (
                 <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center shadow-xs">
                   <Briefcase className="w-12 h-12 text-slate-300 mx-auto mb-3" />
                   <h3 className="text-base font-bold text-slate-800 mb-1">
-                    No Live Vacancies Found for Query
+                    No Vacancies Found for this Search
                   </h3>
                   <p className="text-xs text-slate-500 max-w-sm mx-auto mb-5 leading-relaxed">
-                    The external providers returned no current openings matching your exact keywords. Try a broader search term like "Software", "Analyst", or "Developer".
+                    No current openings match your specific filters. Try broadening your search keywords (e.g. "Software", "Analyst", "Product") or switching location.
                   </p>
                   <button
                     onClick={resetFilters}
-                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-xs transition-colors"
+                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-xs transition-colors cursor-pointer"
                   >
                     Reset Search Parameters
                   </button>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {jobs.map((job) => (
+                  {displayedJobs.slice((page - 1) * 12, page * 12).map((job) => (
                     <JobCard
                       key={job.id}
                       job={job}
@@ -257,12 +316,12 @@ function MainAppContent() {
               )}
 
               {/* Pagination */}
-              {totalPages > 1 && (
+              {Math.ceil(displayedJobs.length / 12) > 1 && (
                 <div className="flex items-center justify-between border-t border-slate-200 mt-8 pt-4 pb-6">
                   <button
                     onClick={() => setPage((p) => Math.max(1, p - 1))}
                     disabled={page <= 1}
-                    className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                    className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer"
                   >
                     <ChevronLeft className="w-4 h-4" />
                     <span>Previous</span>
@@ -270,13 +329,13 @@ function MainAppContent() {
 
                   <div className="flex items-center gap-1 text-xs">
                     <span className="font-semibold text-slate-800">Page {page}</span>
-                    <span className="text-slate-400">of {totalPages}</span>
+                    <span className="text-slate-400">of {Math.ceil(displayedJobs.length / 12)}</span>
                   </div>
 
                   <button
-                    onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                    disabled={page >= totalPages}
-                    className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                    onClick={() => setPage((p) => Math.min(Math.ceil(displayedJobs.length / 12), p + 1))}
+                    disabled={page >= Math.ceil(displayedJobs.length / 12)}
+                    className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer"
                   >
                     <span>Next</span>
                     <ChevronRight className="w-4 h-4" />

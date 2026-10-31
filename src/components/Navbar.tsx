@@ -59,7 +59,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             }`}
           >
             <Briefcase className="w-4 h-4" />
-            <span>Real Vacancies</span>
+            <span>Explore Jobs</span>
           </button>
 
           <button
@@ -71,7 +71,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             }`}
           >
             <Sparkles className="w-4 h-4 text-indigo-500 animate-spin-slow" />
-            <span>AI Discovery</span>
+            <span>AI Job Discovery</span>
             <span className="px-1.5 py-0.2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-[10px] rounded-full font-bold uppercase">
               Gemini
             </span>
@@ -134,6 +134,21 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Right Area: Auth & Action */}
         <div className="flex items-center gap-3">
+          {/* Hire Vetted Graduates CTA matching screenshot button */}
+          <button
+            onClick={() => {
+              if (currentUser) {
+                setCurrentTab('employer');
+              } else {
+                onOpenAuthModal('register');
+              }
+            }}
+            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-indigo-600 text-indigo-700 hover:bg-indigo-50 font-bold text-xs transition-colors cursor-pointer"
+          >
+            <GraduationCap className="w-4 h-4 text-indigo-600" />
+            <span>Hire Vetted Graduates</span>
+          </button>
+
           {/* Saved Jobs Shortcut */}
           <button
             onClick={onOpenSavedDrawer}
@@ -166,7 +181,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={logout}
                 title="Sign Out"
-                className="p-2 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                className="p-2 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
               >
                 <LogOut className="w-4 h-4" />
               </button>
@@ -175,15 +190,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="flex items-center gap-2">
               <button
                 onClick={() => onOpenAuthModal('login')}
-                className="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-700 hover:text-indigo-600 transition-colors"
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 hover:text-indigo-600 transition-colors cursor-pointer"
               >
-                Sign In
-              </button>
-              <button
-                onClick={() => onOpenAuthModal('register')}
-                className="px-4 py-1.5 rounded-lg text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-xs"
-              >
-                Register
+                Login
               </button>
             </div>
           )}
@@ -196,7 +205,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           onClick={() => setCurrentTab('jobs')}
           className={`px-2.5 py-1 rounded-md ${currentTab === 'jobs' ? 'bg-indigo-600 text-white' : 'text-slate-600'}`}
         >
-          Vacancies
+          Explore Jobs
         </button>
         <button
           onClick={() => setCurrentTab('ai-matcher')}

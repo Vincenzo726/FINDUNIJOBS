@@ -86,10 +86,10 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
             </button>
             <button
               onClick={onGoToJobs}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm bg-white/10 hover:bg-white/15 text-white border border-white/20 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm bg-white/10 hover:bg-white/15 text-white border border-white/20 transition-colors cursor-pointer"
             >
               <Briefcase className="w-4 h-4" />
-              <span>Browse Real Vacancies</span>
+              <span>Explore Job Opportunities</span>
             </button>
           </div>
         </div>
@@ -98,7 +98,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
       {saveSuccess && (
         <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs flex items-center gap-2">
           <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-          <span>Profile saved successfully to Firestore database.</span>
+          <span>Profile updated successfully.</span>
         </div>
       )}
 
@@ -352,9 +352,9 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                 </div>
                 <button
                   type="submit"
-                  className="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg"
+                  className="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg cursor-pointer transition-colors"
                 >
-                  Save Profile to Database
+                  Save Profile Changes
                 </button>
               </form>
             )}

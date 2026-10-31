@@ -241,12 +241,12 @@ export const AiMatcherPage: React.FC<AiMatcherPageProps> = ({
               {isLoading ? (
                 <>
                   <RefreshCw className="w-4 h-4 animate-spin" />
-                  <span>Searching Real Job Providers with Gemini...</span>
+                  <span>Searching Opportunities with AI...</span>
                 </>
               ) : (
                 <>
                   <Sparkles className="w-4 h-4 text-yellow-300" />
-                  <span>Find My Best Real Job Matches</span>
+                  <span>Find My Best Job Matches</span>
                 </>
               )}
             </button>
@@ -261,14 +261,14 @@ export const AiMatcherPage: React.FC<AiMatcherPageProps> = ({
                 <Brain className="w-8 h-8 animate-pulse" />
               </div>
               <h3 className="text-lg font-bold text-slate-900 mb-1">
-                Searching Real Job Feeds
+                Searching Available Vacancies
               </h3>
               <p className="text-xs text-slate-500 max-w-sm mx-auto mb-4 leading-relaxed">
-                Querying Jobicy Remote API & Jooble Nigeria, then evaluating candidate compatibility using Gemini 3.8 Flash...
+                Querying active opportunity feeds and evaluating role compatibility with your profile...
               </p>
               <div className="flex items-center gap-2 text-xs text-indigo-600 font-medium bg-indigo-50 px-3 py-1.5 rounded-full">
                 <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                <span>Evaluating skill relevance & Nigerian eligibility</span>
+                <span>Evaluating skill relevance and qualifications</span>
               </div>
             </div>
           )}
@@ -308,12 +308,12 @@ export const AiMatcherPage: React.FC<AiMatcherPageProps> = ({
               {searchSummary && (
                 <div className="p-4 rounded-xl bg-indigo-50/80 border border-indigo-200 text-xs">
                   <span className="font-bold text-indigo-900 block mb-1">
-                    AI Semantic Assessment:
+                    AI Match Summary:
                   </span>
                   <p className="text-indigo-950 leading-relaxed">{searchSummary}</p>
                   <div className="mt-2 pt-2 border-t border-indigo-200/60 flex items-center justify-between text-[11px] text-indigo-700">
-                    <span>Providers: {providersUsed.join(', ')}</span>
-                    <span>{matches.length} Verified Real Matches</span>
+                    <span>Source: {providersUsed.filter((p) => !p.includes('key')).join(', ') || 'Live Feed'}</span>
+                    <span className="font-semibold">{matches.length} Matched Opportunities</span>
                   </div>
                 </div>
               )}
