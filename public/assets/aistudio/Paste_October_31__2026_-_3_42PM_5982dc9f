@@ -1,0 +1,918 @@
+# FJ FIND UNIJOB — PRODUCTION-READY NIGERIAN AI JOB PLATFORM
+
+You are a senior full-stack software engineer, AI engineer, security engineer, product designer and database architect.
+
+Build FJ FindUniJob as a complete, functional, Nigeria-focused job discovery and AI recruitment platform.
+
+This must be a real full-stack application, not a static prototype.
+
+I have provided screenshots of my existing website interface. These screenshots are the primary design reference. Reproduce the existing design faithfully while improving usability, accessibility and responsiveness.
+
+The application must have:
+- Real user registration and authentication.
+- Real authorization and role-based access control.
+- Persistent database storage.
+- Real job API integrations.
+- Real AI-powered job discovery.
+- Functional search and filters.
+- Real job details and application links.
+- Secure backend functionality.
+- A responsive Nigerian-focused interface.
+
+Do not use mock job listings, fictional companies, fabricated AI answers or dummy authentication.
+
+==================================================
+1. PRODUCT IDENTITY AND TARGET MARKET
+==================================================
+
+Product name: FJ FindUniJob
+
+Product description:
+
+FJ FindUniJob is an AI-powered employment and opportunity discovery platform designed primarily for Nigerian university students, undergraduates, NYSC members, graduates and early-career professionals.
+
+The platform helps users discover real employment opportunities in Nigeria and suitable remote opportunities available to candidates in Nigeria.
+
+Its core differentiator is an AI assistant that understands a candidate's qualifications, experience, skills and career interests, searches actual job providers and recommends relevant opportunities.
+
+Primary target market:
+- Nigerian university students.
+- Fresh graduates.
+- NYSC members.
+- Entry-level job seekers.
+- Junior developers and technology professionals.
+- Internship seekers.
+- Graduate trainee applicants.
+- Experienced professionals seeking new opportunities.
+
+The platform should be Nigerian-first but support legitimate international remote opportunities.
+
+==================================================
+2. NIGERIAN DESIGN AND LOCALIZATION
+==================================================
+
+Use the uploaded screenshots to reproduce the existing interface.
+
+Do not invent an unrelated interface or replace the existing brand identity.
+
+Make the website feel like a professional Nigerian technology product.
+
+Localization requirements:
+
+- Country: Nigeria.
+- Currency: Nigerian Naira (₦).
+- Default timezone: Africa/Lagos.
+- Date format: DD MMM YYYY.
+- Default country code: +234.
+- Default job-search location: Nigeria.
+- Language: English.
+
+Support Nigerian locations, including:
+
+Lagos, Abuja, Ibadan, Abeokuta, Akure, Ilorin, Port Harcourt, Benin City, Enugu, Kano, Kaduna, Jos, Owerri and other Nigerian cities and states.
+
+Location categories:
+- On-site.
+- Hybrid.
+- Remote.
+- Remote worldwide, only when explicitly allowed by the employer.
+
+Support Nigerian educational qualifications and career levels, including:
+- ND.
+- HND.
+- BSc.
+- BEng.
+- BA.
+- MSc.
+- PhD.
+- Undergraduate.
+- Graduate.
+- NYSC.
+- Internship.
+- Entry-level.
+- Junior.
+- Mid-level.
+- Senior.
+
+Support relevant Nigerian employment categories:
+- Full-time.
+- Part-time.
+- Internship.
+- Graduate trainee.
+- Contract.
+- Temporary.
+- NYSC opportunities.
+- Remote opportunities.
+
+Display salaries in the currency provided by the actual employer or API. Use ₦ for verified NGN amounts. Do not convert currencies using invented exchange rates.
+
+Never fabricate Nigerian company names, recruitment announcements, vacancy counts or salary information.
+
+==================================================
+3. TECHNOLOGY ARCHITECTURE
+==================================================
+
+Use Google AI Studio Build mode and its supported full-stack environment.
+
+Preferred architecture:
+
+Frontend:
+- React.
+- TypeScript where practical.
+- Responsive CSS or Tailwind CSS.
+- Reusable components.
+- Proper application routing.
+
+Backend:
+- Node.js server runtime.
+- Express or an appropriate supported server framework.
+- Modular route and service architecture.
+- Server-side API integrations.
+
+Database:
+- Firebase Firestore for persistent data.
+- Firebase Authentication for users.
+
+AI:
+- Gemini API through Google AI Studio.
+- Server-side AI calls.
+- Structured AI outputs.
+
+Security:
+- Firebase Authentication.
+- Firebase security rules.
+- Server-side Firebase ID token verification.
+- Role-based authorization.
+- Server-side secrets.
+
+If an existing repository is imported, inspect its current architecture and preserve working components. Do not unnecessarily migrate technologies.
+
+Separate frontend, backend, AI logic, external API adapters and database operations.
+
+==================================================
+4. REAL AUTHENTICATION AND AUTHORIZATION
+==================================================
+
+This is mandatory.
+
+Do not create fake login screens that simply redirect users to the dashboard.
+
+Implement genuine user authentication using Firebase Authentication.
+
+Provide:
+
+A. USER REGISTRATION
+- Full name.
+- Email address.
+- Password.
+- Password confirmation.
+- Account type.
+- Acceptance of terms and privacy policy.
+
+B. LOGIN
+- Email and password authentication.
+- Google sign-in.
+- Appropriate validation.
+- Secure error messages.
+- Session persistence.
+
+C. ACCOUNT MANAGEMENT
+- Logout.
+- Email verification.
+- Password reset.
+- Password change.
+- Profile editing.
+- Account deletion.
+- Protected routes.
+
+Use Firebase Authentication rather than storing plaintext passwords in Firestore.
+
+D. AUTHORIZATION AND USER ROLES
+
+Implement genuine role-based access control.
+
+Roles:
+
+1. JOB SEEKER
+
+Permissions:
+- Browse jobs.
+- Search jobs.
+- Use AI job discovery.
+- Manage personal profile.
+- Save jobs.
+- View saved jobs.
+- Manage job alerts.
+- View personal activity.
+
+2. EMPLOYER / RECRUITER
+
+Permissions:
+- Manage employer profile.
+- Submit job opportunities for approval.
+- Manage their own approved job postings.
+- View their own listings.
+- Manage appropriate recruitment information.
+
+Employer-created vacancies must be clearly distinguished from external API listings.
+
+3. ADMINISTRATOR
+
+Permissions:
+- Manage user accounts.
+- Review employers.
+- Approve or reject employer-submitted jobs.
+- Moderate reported listings.
+- Manage platform settings.
+- View platform health and API integration status.
+
+Security rules:
+
+- Users cannot change their own roles to administrator.
+- Users cannot access another user's private profile or saved jobs.
+- Employers cannot modify another employer's listings.
+- Only authorized administrators can approve listings.
+- Backend endpoints must enforce permissions independently of frontend visibility.
+- Never trust a role supplied by the browser.
+- Verify Firebase identity tokens on protected backend endpoints.
+- Apply rate limiting to sensitive endpoints.
+- Store secrets only in server-side configuration.
+
+Test that unauthorized requests actually fail.
+
+==================================================
+5. REAL JOB API INTEGRATIONS
+==================================================
+
+This is mandatory.
+
+Do not generate mock jobs or fabricate employer records.
+
+Integrate real job providers through the backend.
+
+PROVIDER A: JOOBLE NIGERIA
+
+Official API registration:
+
+https://ng.jooble.org/api/about
+
+Use the Nigerian regional API.
+
+Endpoint:
+
+POST https://ng.jooble.org/api/{api_key}
+
+Store the key securely as:
+
+JOOBLE_NG_API_KEY
+
+Use documented JSON request parameters:
+
+{
+  "keywords": "Software Developer",
+  "location": "Lagos, Nigeria",
+  "page": "1",
+  "ResultOnPage": "20"
+}
+
+Other supported parameters may include radius, salary, SearchMode and companysearch.
+
+Only use parameters supported by the official documentation.
+
+Read the actual response fields, including:
+
+- id.
+- title.
+- location.
+- snippet.
+- salary.
+- source.
+- type.
+- link.
+- company.
+- updated.
+
+Map these correctly into the application.
+
+Preserve the original job link to Jooble.
+
+Do not invent application URLs.
+
+Handle invalid API keys and authorization errors properly.
+
+Use caching and conservative request limits.
+
+PROVIDER B: JOBICY REMOTE JOB API
+
+Official API:
+
+https://jobicy.com/api/jobs
+
+This public API does not require an API key.
+
+Example:
+
+GET https://jobicy.com/api/jobs?count=100&geo=anywhere
+
+Supported parameters include:
+- count.
+- cursor.
+- geo.
+- industry.
+- tag.
+
+Use the official endpoint exactly.
+
+DO NOT use:
+- utm_source.
+- Unsupported query parameters.
+- The incorrect jobi.cy API host.
+
+Use cursor pagination correctly.
+
+Only display jobs whose geographical eligibility is suitable for the user.
+
+For a Nigerian candidate:
+- Show remote worldwide listings only when the provider explicitly permits worldwide applications.
+- Show Nigeria-specific opportunities where available.
+- Do not assume every remote vacancy accepts Nigerian applicants.
+
+Preserve:
+- Original Jobicy ID.
+- Original listing URL.
+- Company name.
+- Job description.
+- Location eligibility.
+- Publication date.
+- Job category.
+- Salary when provided.
+- Provider name.
+
+Keep a visible attribution to the original job provider.
+
+PROVIDER INTEGRATION REQUIREMENTS
+
+Build a dedicated service for each provider.
+
+Normalize job records into one consistent internal structure.
+
+A normalized job should include:
+
+{
+  "id": "provider-specific-unique-id",
+  "provider": "jooble",
+  "providerJobId": "original-provider-id",
+  "title": "Actual job title",
+  "company": "Actual company",
+  "description": "Original job description",
+  "location": "Actual location",
+  "employmentType": "Actual employment type",
+  "salary": null,
+  "currency": null,
+  "skills": [],
+  "publishedAt": null,
+  "updatedAt": null,
+  "applicationUrl": "Original provider URL",
+  "sourceUrl": "Original provider URL",
+  "isRemote": false,
+  "fetchedAt": "ISO timestamp"
+}
+
+This is a schema example, not a job record to insert.
+
+Do not fill missing fields with invented information.
+
+Use provider-specific IDs to prevent duplicates.
+
+Implement:
+- API request timeouts.
+- Error handling.
+- Retry where appropriate.
+- Caching.
+- Deduplication.
+- Provider health monitoring.
+- Data freshness monitoring.
+- Rate-limit protection.
+- Pagination.
+
+If one provider is unavailable, show results from the other provider when possible.
+
+Never silently replace real jobs with synthetic data.
+
+If a provider requires an API key that has not been configured, display a clear setup warning and continue using available real providers.
+
+Do not claim that all Nigerian jobs are available through these providers.
+
+==================================================
+6. REAL AI JOB DISCOVERY — THE MAIN FEATURE
+==================================================
+
+The AI is the central feature of FJ FindUniJob.
+
+Use Gemini through Google AI Studio.
+
+The AI must find actual job opportunities, not invent them.
+
+Create an AI job discovery assistant that understands normal human language.
+
+Example user queries:
+
+"Find me junior backend developer jobs in Lagos."
+
+"Find remote JavaScript internships that accept Nigerian students."
+
+"I am a 200-level Software Engineering student. Find opportunities I can apply for."
+
+"Find graduate trainee opportunities in Nigeria."
+
+"Find entry-level jobs requiring SQL and Excel."
+
+"Find remote frontend jobs that accept candidates from Africa."
+
+"Find NYSC-friendly software engineering opportunities."
+
+The AI must understand:
+- Job title.
+- Skills.
+- Education.
+- Experience.
+- Location.
+- Employment type.
+- Remote eligibility.
+- Seniority.
+- Salary preferences.
+- Career interests.
+
+AI SEARCH WORKFLOW
+
+1. Receive the user's natural-language request and authenticated candidate profile.
+2. Understand the candidate's requirements.
+3. Produce a structured search plan.
+4. Query the appropriate real job providers.
+5. Retrieve actual job records.
+6. Normalize and validate the returned records.
+7. Rank the retrieved jobs using Gemini.
+8. Verify that every returned job ID belongs to the retrieved records.
+9. Return structured recommendations.
+10. Display actual jobs and their original application links.
+
+The AI must not invent jobs, companies, job links, vacancies, salaries or application deadlines.
+
+The AI may explain why a real listing is suitable, but the underlying job information must come from the provider.
+
+Use function calling or a reliable backend orchestration service to ensure the model actually triggers the job search.
+
+Build:
+
+POST /api/ai/find-jobs
+
+Expected response structure:
+
+{
+  "success": true,
+  "searchSummary": "Junior backend opportunities in Lagos",
+  "matches": [
+    {
+      "jobId": "actual-provider-job-id",
+      "title": "Actual returned title",
+      "company": "Actual returned company",
+      "matchScore": 91,
+      "reason": "Explanation based on the candidate profile",
+      "matchingSkills": ["JavaScript", "Node.js"],
+      "missingSkills": ["Docker"],
+      "source": "jooble",
+      "applicationUrl": "actual-provider-link"
+    }
+  ],
+  "providersUsed": ["jooble", "jobicy"],
+  "resultsCount": 1
+}
+
+This is an output schema example only.
+
+IMPORTANT:
+The model must not invent the job records to fill this response.
+
+Calculate or explain match scores transparently. Do not present a speculative AI score as a verified employer assessment.
+
+Build:
+- AI search interface.
+- Search suggestions.
+- Search history.
+- Recommended jobs.
+- Match explanations.
+- AI loading states.
+- Clear empty states.
+- Error recovery.
+- Ability to refine a search.
+
+The AI should be able to find jobs from real external providers based on a user's request.
+
+==================================================
+7. CANDIDATE PROFILE
+==================================================
+
+Create a persistent candidate profile.
+
+Fields:
+
+- Full name.
+- Email.
+- Phone number (optional).
+- University.
+- Course of study.
+- Qualification.
+- Graduation year.
+- Academic level.
+- Skills.
+- Experience.
+- Certifications.
+- Career interests.
+- Preferred job locations.
+- Employment preferences.
+- CV/resume upload.
+
+Allow candidates to update their profiles.
+
+Allow the AI to use relevant profile information after user consent.
+
+Support secure CV storage.
+
+Never expose uploaded CVs publicly.
+
+Do not claim that a CV has been analyzed unless the AI actually processed it.
+
+==================================================
+8. JOB DISCOVERY EXPERIENCE
+==================================================
+
+Build a fully functional job discovery experience.
+
+Include:
+- Search.
+- Filters.
+- Pagination.
+- Sorting.
+- Job categories.
+- Job locations.
+- Employment types.
+- Remote filters.
+- Skills filtering.
+- Salary filtering when salary data exists.
+
+Each job card must display:
+- Actual job title.
+- Actual company.
+- Location.
+- Employment type.
+- Posted or updated date when available.
+- Salary only when disclosed by the source.
+- Original source.
+- Actual application link.
+
+Job detail pages should display available original information.
+
+Every external application button must open the actual source application page.
+
+Never claim that users applied successfully when they were redirected to an external job provider.
+
+Clearly distinguish:
+- External API listings.
+- Employer-submitted listings.
+- Employer-approved listings.
+
+==================================================
+9. SAVED JOBS AND JOB ALERTS
+==================================================
+
+Use authenticated user accounts.
+
+Allow candidates to:
+- Save jobs.
+- Remove saved jobs.
+- View saved opportunities.
+- Configure job preferences.
+- Create job alerts.
+- Manage alert frequency.
+- Delete alerts.
+
+Do not send email alerts unless a genuine notification service is connected.
+
+If email notifications are required, implement a real email provider with server-side credentials and proper user consent.
+
+==================================================
+10. EMPLOYER AND ADMIN DASHBOARDS
+==================================================
+
+Create a working employer area.
+
+Employers should be able to:
+- Maintain company profiles.
+- Submit job vacancies.
+- View submitted listings.
+- Edit their own permitted listings.
+- Track listing approval status.
+
+Create an admin dashboard with:
+- User management.
+- Employer verification.
+- Job moderation.
+- Report management.
+- API integration health.
+- Basic real usage analytics.
+
+Do not populate analytics with fabricated numbers.
+
+Only display data obtained from actual database records and events.
+
+==================================================
+11. DATABASE
+==================================================
+
+Use Firebase Firestore for persistent records.
+
+Collections may include:
+
+users
+candidateProfiles
+employerProfiles
+jobs
+savedJobs
+jobAlerts
+aiSearchHistory
+jobReports
+adminLogs
+
+Use appropriate document IDs and indexes.
+
+For external API jobs:
+- Store provider identifiers.
+- Store original source links.
+- Store provider names.
+- Store timestamps.
+- Avoid duplicate records.
+- Refresh stale records according to provider policy.
+
+Do not store passwords in Firestore.
+
+Implement Firebase security rules that enforce authenticated ownership and role permissions.
+
+Use secure server-side access for administrator operations.
+
+Do not expose service credentials to the client.
+
+==================================================
+12. BACKEND API STRUCTURE
+==================================================
+
+Implement properly protected endpoints.
+
+Suggested structure:
+
+Authentication:
+- Firebase Authentication integration.
+
+Users:
+GET /api/users/me
+PATCH /api/users/me
+DELETE /api/users/me
+
+Jobs:
+GET /api/jobs
+GET /api/jobs/:id
+GET /api/jobs/categories
+GET /api/jobs/locations
+
+AI:
+POST /api/ai/find-jobs
+GET /api/ai/search-history
+
+Saved jobs:
+GET /api/saved-jobs
+POST /api/saved-jobs
+DELETE /api/saved-jobs/:id
+
+Job alerts:
+GET /api/job-alerts
+POST /api/job-alerts
+DELETE /api/job-alerts/:id
+
+Employers:
+GET /api/employer/profile
+PATCH /api/employer/profile
+POST /api/employer/jobs
+GET /api/employer/jobs
+
+Admin:
+GET /api/admin/overview
+GET /api/admin/users
+GET /api/admin/jobs/pending
+PATCH /api/admin/jobs/:id/approval
+
+Health:
+GET /api/health
+GET /api/health/providers
+
+Implement suitable validation, authentication, authorization, pagination and error handling.
+
+==================================================
+13. SECURITY AND PRIVACY
+==================================================
+
+Implement:
+- Secure authentication.
+- Role-based authorization.
+- Server-side ID token verification.
+- Firestore security rules.
+- Request validation.
+- Rate limiting.
+- Secure secret management.
+- Protected file uploads.
+- Input sanitization.
+- Safe HTML rendering.
+- Error logging.
+- CORS restrictions.
+- Protection against unauthorized access.
+- Protection against users accessing other users' private data.
+
+Do not put API keys inside frontend JavaScript.
+
+Do not log passwords, tokens, private CV contents or API secrets.
+
+Add appropriate privacy policy and terms of service pages.
+
+==================================================
+14. GOOGLE AI STUDIO INTEGRATION
+==================================================
+
+Use Google AI Studio's full-stack environment.
+
+Set up:
+- React frontend.
+- Node.js server-side logic.
+- Gemini integration.
+- Firebase Authentication.
+- Firebase Firestore.
+- Secure server-side secrets.
+
+The Gemini API key should remain server-side.
+
+Configure these external credentials through the platform's Secrets manager:
+
+GEMINI_API_KEY
+JOOBLE_NG_API_KEY
+
+Use the automatically provisioned Gemini secret where available.
+
+Do not create fake credentials.
+
+When a secret is missing, tell me exactly which key is needed, where to obtain it and where to configure it.
+
+Do not hardcode a placeholder and pretend the service is connected.
+
+==================================================
+15. REAL FUNCTIONAL TESTING
+==================================================
+
+Test the application as a real user.
+
+TEST 1 — AUTHENTICATION
+
+- Register a new account.
+- Verify email where configured.
+- Login.
+- Logout.
+- Reset password.
+- Confirm protected routes reject unauthenticated users.
+
+TEST 2 — AUTHORIZATION
+
+- Confirm candidates cannot access admin routes.
+- Confirm employers cannot modify another employer's jobs.
+- Confirm only approved administrators can perform moderation.
+- Confirm changing browser-side role values does not grant privileges.
+
+TEST 3 — REAL JOB API
+
+- Check Jooble Nigeria API connectivity.
+- Check Jobicy API connectivity.
+- Confirm returned jobs contain real source information.
+- Confirm original links work.
+- Confirm duplicate jobs are handled.
+- Confirm invalid API keys return useful errors.
+
+TEST 4 — AI JOB DISCOVERY
+
+- Search for junior developer jobs in Lagos.
+- Search for remote jobs open to Nigerian applicants.
+- Search for internships.
+- Change candidate skills and compare results.
+- Confirm Gemini searches actual providers.
+- Confirm every recommendation corresponds to a real returned job.
+- Confirm missing providers are reported honestly.
+
+TEST 5 — DATABASE
+
+- Register and persist a profile.
+- Save a job.
+- Reload the website.
+- Confirm saved jobs remain available.
+- Update profile information.
+- Confirm user isolation.
+
+TEST 6 — APPLICATION
+
+- Test external application redirects.
+- Verify that links open the actual provider listing.
+- Never display a false application success message.
+
+TEST 7 — PRODUCTION
+
+- Run the production build.
+- Fix TypeScript and JavaScript errors.
+- Fix backend errors.
+- Fix broken routes.
+- Test responsive layouts.
+- Test critical user workflows.
+
+Do not claim a test passed without actually executing it.
+
+==================================================
+16. CRITICAL RULES
+==================================================
+
+1. Everything must be based on real functionality.
+2. No synthetic job records.
+3. No fabricated company names.
+4. No fake user accounts.
+5. No mock authentication.
+6. No fake AI responses.
+7. No invented application URLs.
+8. No fake salary figures.
+9. No fabricated vacancy counts.
+10. No invented API integrations.
+11. No frontend-only security.
+12. No public API keys.
+13. No pretending a provider is connected when it is not.
+14. No claiming the entire Nigerian employment market is covered.
+15. No unnecessary generic redesign.
+16. No destructive changes.
+17. No deploying without my review.
+
+If an API key is missing, build the integration, show the setup requirement and continue developing the other functionality.
+
+If a provider returns no jobs, show an honest empty state instead of generating fake results.
+
+If Gemini is unavailable, explain that AI search is temporarily unavailable. Do not simulate a successful AI answer.
+
+==================================================
+17. FINAL DELIVERY REQUIREMENTS
+==================================================
+
+Deliver a fully integrated FJ FindUniJob application with:
+
+- Nigerian-first design.
+- Real authentication.
+- Real authorization.
+- Persistent database.
+- Actual job API integrations.
+- Gemini-powered job discovery.
+- Actual job listings.
+- Working search and filtering.
+- Functional job details.
+- Secure user profiles.
+- Saved jobs.
+- Job alerts.
+- Employer features.
+- Admin features.
+- Responsive frontend.
+- Node.js backend.
+- API health monitoring.
+- Proper documentation.
+- Successful production build.
+
+At the end, provide:
+
+1. Complete architecture.
+2. Features actually implemented.
+3. Authentication test results.
+4. Authorization test results.
+5. Job provider connection results.
+6. AI job search test results.
+7. Database test results.
+8. Build test results.
+9. Required API keys and setup instructions.
+10. Remaining limitations.
+11. Deployment instructions.
+
+IMPORTANT FINAL INSTRUCTION:
+
+Build a real Nigerian job discovery platform, not a static visual prototype.
+
+The AI must search real job providers, retrieve actual listings and recommend those opportunities based on candidate profiles.
+
+Start with the uploaded design and build the frontend and backend together.
+
+Implement actual working functionality, not just UI components.
+
+Do not stop after creating the homepage. Continue until the entire application is integrated and tested.

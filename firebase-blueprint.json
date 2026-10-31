@@ -1,0 +1,138 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Account",
+      "description": "User account authentication profile and role definition",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "fullName": { "type": "string" },
+        "role": { "type": "string", "enum": ["job_seeker", "employer", "admin"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "email", "fullName", "role"]
+    },
+    "CandidateProfile": {
+      "title": "Candidate Profile",
+      "description": "Detailed candidate career and education details for Nigerian talent",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "fullName": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "university": { "type": "string" },
+        "courseOfStudy": { "type": "string" },
+        "qualification": { "type": "string" },
+        "graduationYear": { "type": "string" },
+        "academicLevel": { "type": "string" },
+        "skills": { "type": "string" },
+        "experience": { "type": "string" },
+        "careerInterests": { "type": "string" },
+        "preferredLocations": { "type": "string" },
+        "employmentPreferences": { "type": "string" },
+        "cvUrl": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "fullName", "email"]
+    },
+    "EmployerProfile": {
+      "title": "Employer Profile",
+      "description": "Verified Nigerian and remote employer profile",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "companyName": { "type": "string" },
+        "companyEmail": { "type": "string" },
+        "website": { "type": "string" },
+        "location": { "type": "string" },
+        "description": { "type": "string" },
+        "verified": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "companyName", "companyEmail"]
+    },
+    "EmployerJob": {
+      "title": "Employer Job",
+      "description": "Job submitted directly by an employer, subject to admin approval",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "employerId": { "type": "string" },
+        "companyName": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "location": { "type": "string" },
+        "employmentType": { "type": "string" },
+        "salary": { "type": "string" },
+        "currency": { "type": "string" },
+        "skills": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "applicationUrl": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["employerId", "companyName", "title", "description", "status"]
+    },
+    "SavedJob": {
+      "title": "Saved Job",
+      "description": "Opportunity bookmarked by a job seeker",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "jobId": { "type": "string" },
+        "title": { "type": "string" },
+        "company": { "type": "string" },
+        "location": { "type": "string" },
+        "salary": { "type": "string" },
+        "provider": { "type": "string" },
+        "applicationUrl": { "type": "string" },
+        "savedAt": { "type": "string" }
+      },
+      "required": ["userId", "jobId", "title", "company", "applicationUrl"]
+    },
+    "JobAlert": {
+      "title": "Job Alert",
+      "description": "User subscription for job notifications",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "keyword": { "type": "string" },
+        "location": { "type": "string" },
+        "frequency": { "type": "string" },
+        "active": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "keyword"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile with role definition"
+    },
+    "/candidateProfiles/{userId}": {
+      "schema": "CandidateProfile",
+      "description": "Candidate CV, educational and skill preferences"
+    },
+    "/employerProfiles/{userId}": {
+      "schema": "EmployerProfile",
+      "description": "Employer business profile"
+    },
+    "/employerJobs/{jobId}": {
+      "schema": "EmployerJob",
+      "description": "Direct employer job submissions"
+    },
+    "/savedJobs/{saveId}": {
+      "schema": "SavedJob",
+      "description": "User bookmarked jobs"
+    },
+    "/jobAlerts/{alertId}": {
+      "schema": "JobAlert",
+      "description": "User job search alerts"
+    }
+  }
+}
