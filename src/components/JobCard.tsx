@@ -25,7 +25,7 @@ export const JobCard: React.FC<JobCardProps> = ({
     .toUpperCase() || 'JB';
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200/90 hover:border-indigo-300 hover:shadow-md transition-all p-5 flex flex-col justify-between group">
+    <div className="bg-white rounded-xl border border-slate-200/90 hover:border-emerald-300 hover:shadow-md transition-all p-5 flex flex-col justify-between group">
       <div>
         {/* Card Header */}
         <div className="flex items-start justify-between gap-3 mb-3">
@@ -40,7 +40,7 @@ export const JobCard: React.FC<JobCardProps> = ({
                 }}
               />
             ) : (
-              <div className="w-11 h-11 rounded-lg bg-indigo-50 border border-indigo-200 text-indigo-700 font-black text-sm flex items-center justify-center shrink-0">
+              <div className="w-11 h-11 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 font-black text-sm flex items-center justify-center shrink-0">
                 {companyInitials}
               </div>
             )}
@@ -48,7 +48,7 @@ export const JobCard: React.FC<JobCardProps> = ({
             <div>
               <h3
                 onClick={() => onSelectJob(job)}
-                className="text-base font-bold text-slate-900 group-hover:text-indigo-600 transition-colors cursor-pointer line-clamp-1"
+                className="text-base font-bold text-slate-900 group-hover:text-emerald-700 transition-colors cursor-pointer line-clamp-1"
               >
                 {job.title}
               </h3>
@@ -68,11 +68,11 @@ export const JobCard: React.FC<JobCardProps> = ({
             aria-label={isSaved ? 'Remove from saved' : 'Save job'}
             className={`p-2 rounded-lg transition-colors cursor-pointer ${
               isSaved
-                ? 'text-indigo-600 bg-indigo-50'
-                : 'text-slate-400 hover:text-indigo-600 hover:bg-slate-50'
+                ? 'text-emerald-600 bg-emerald-50'
+                : 'text-slate-400 hover:text-emerald-600 hover:bg-slate-50'
             }`}
           >
-            <Bookmark className={`w-4 h-4 ${isSaved ? 'fill-indigo-600' : ''}`} />
+            <Bookmark className={`w-4 h-4 ${isSaved ? 'fill-emerald-600' : ''}`} />
           </button>
         </div>
 
@@ -85,7 +85,7 @@ export const JobCard: React.FC<JobCardProps> = ({
 
           <span className="text-slate-300">·</span>
 
-          <span className="font-semibold text-indigo-700 bg-indigo-50/80 px-2 py-0.5 rounded text-[11px]">
+          <span className="font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded text-[11px]">
             {job.employmentType}
           </span>
 
@@ -129,7 +129,7 @@ export const JobCard: React.FC<JobCardProps> = ({
       {/* Card Footer */}
       <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
         <div className="flex items-center gap-1 text-[11px] text-slate-500">
-          <ShieldCheck className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
+          <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
           <span className="font-medium truncate max-w-[140px]">{job.sourceAttribution}</span>
         </div>
 
@@ -138,9 +138,9 @@ export const JobCard: React.FC<JobCardProps> = ({
             type="button"
             onClick={() => onQuickMatch(job)}
             title="Evaluate AI match score with your candidate profile"
-            className="p-1.5 rounded-lg text-indigo-600 hover:bg-indigo-50 text-xs font-semibold flex items-center gap-1 transition-colors"
+            className="p-1.5 rounded-lg text-emerald-700 hover:bg-emerald-50 text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer"
           >
-            <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
+            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
             <span className="hidden sm:inline">AI Match</span>
           </button>
 
@@ -148,7 +148,7 @@ export const JobCard: React.FC<JobCardProps> = ({
             href={job.applicationUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-slate-900 hover:bg-indigo-600 transition-colors shadow-xs"
+            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-slate-900 hover:bg-emerald-600 transition-colors shadow-xs"
           >
             <span>Apply</span>
             <ExternalLink className="w-3 h-3" />

@@ -84,15 +84,16 @@ export const AiMatcherPage: React.FC<AiMatcherPageProps> = ({
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header Banner */}
       <div className="text-center max-w-3xl mx-auto mb-8">
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 mb-3">
-          <Sparkles className="w-3.5 h-3.5 text-yellow-500" />
-          <span>REAL-TIME GEMINI 3.8 FLASH DISCOVERY</span>
+        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 mb-3 shadow-2xs">
+          <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+          <span>FJ CAREER AI DISCOVERY • POWERED BY GEMINI</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-2">
-          AI Nigerian & Remote Job Matcher
+          AI Opportunity Matcher
         </h1>
         <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl mx-auto">
-          Natural-language AI job search powered by Google Gemini. Our engine searches live feeds from Jobicy and Nigerian job providers, extracting genuine vacancies that match your qualifications.
+          Natural-language semantic job search. Our engine analyzes live job feeds from verified sources
+          and ranks the most relevant opportunities against your qualifications and career ambitions.
         </p>
 
         {/* Quick Sample Queries */}
@@ -105,7 +106,7 @@ export const AiMatcherPage: React.FC<AiMatcherPageProps> = ({
                 setQuery(q);
                 handleRunAiSearch(q);
               }}
-              className="px-2.5 py-1 text-[11px] font-semibold bg-white border border-slate-200 hover:border-indigo-400 hover:text-indigo-600 rounded-lg transition-colors cursor-pointer"
+              className="px-2.5 py-1 text-[11px] font-semibold bg-white border border-slate-200 hover:border-emerald-400 hover:text-emerald-700 rounded-lg transition-colors cursor-pointer"
             >
               "{q}"
             </button>
@@ -116,17 +117,17 @@ export const AiMatcherPage: React.FC<AiMatcherPageProps> = ({
       {/* Main Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left: Search & Candidate Profile Setup */}
-        <div className="lg:col-span-5 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+        <div className="lg:col-span-5 bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex flex-col justify-between">
           <div className="space-y-4">
             <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wide flex items-center gap-2 border-b border-slate-100 pb-3">
-              <Brain className="w-4 h-4 text-indigo-600" />
-              <span>Search Prompt & Profile Context</span>
+              <Brain className="w-4 h-4 text-emerald-600" />
+              <span>Search Prompt &amp; Candidate Context</span>
             </h2>
 
             {/* Natural language query */}
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5">
-                What kind of job are you looking for? *
+                What opportunity are you searching for? *
               </label>
               <div className="relative">
                 <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />
@@ -135,7 +136,7 @@ export const AiMatcherPage: React.FC<AiMatcherPageProps> = ({
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="e.g. Find junior backend developer jobs in Lagos or remote that accept Nigerian candidates"
-                  className="w-full pl-9 pr-3 py-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500"
+                  className="w-full pl-9 pr-3 py-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
                 />
               </div>
             </div>
@@ -151,7 +152,7 @@ export const AiMatcherPage: React.FC<AiMatcherPageProps> = ({
                   value={profile.university}
                   onChange={(e) => setProfile({ ...profile, university: e.target.value })}
                   placeholder="e.g. UNILAG, UI, FUTA"
-                  className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500"
+                  className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
                 />
               </div>
 
@@ -164,7 +165,7 @@ export const AiMatcherPage: React.FC<AiMatcherPageProps> = ({
                   value={profile.courseOfStudy}
                   onChange={(e) => setProfile({ ...profile, courseOfStudy: e.target.value })}
                   placeholder="e.g. BSc Computer Science"
-                  className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500"
+                  className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
                 />
               </div>
             </div>
@@ -178,7 +179,7 @@ export const AiMatcherPage: React.FC<AiMatcherPageProps> = ({
                 <select
                   value={profile.academicLevel}
                   onChange={(e) => setProfile({ ...profile, academicLevel: e.target.value as any })}
-                  className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500 bg-white"
+                  className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500 bg-white"
                 >
                   <option value="Undergraduate">Undergraduate</option>
                   <option value="NYSC">NYSC Member</option>
@@ -198,7 +199,7 @@ export const AiMatcherPage: React.FC<AiMatcherPageProps> = ({
                   onChange={(e) =>
                     setProfile({ ...profile, preferredLocations: [e.target.value] })
                   }
-                  className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500"
+                  className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
                 />
               </div>
             </div>
@@ -206,7 +207,7 @@ export const AiMatcherPage: React.FC<AiMatcherPageProps> = ({
             {/* Skills */}
             <div>
               <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wide mb-1">
-                Your Technical & Core Skills
+                Your Technical &amp; Core Skills
               </label>
               <input
                 type="text"
@@ -218,10 +219,10 @@ export const AiMatcherPage: React.FC<AiMatcherPageProps> = ({
                   })
                 }
                 placeholder="e.g. Python, SQL, React, Node.js"
-                className="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
               />
               <span className="text-[10px] text-slate-400 mt-1 block">
-                Separate skills with commas. Gemini evaluates these against live job requirements.
+                Separate skills with commas. Evaluated against real job postings.
               </span>
             </div>
 
@@ -236,7 +237,7 @@ export const AiMatcherPage: React.FC<AiMatcherPageProps> = ({
             <button
               onClick={() => handleRunAiSearch()}
               disabled={isLoading}
-              className="w-full py-3 px-4 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
+              className="w-full py-3 px-4 rounded-xl font-bold text-xs sm:text-sm text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
             >
               {isLoading ? (
                 <>
@@ -245,176 +246,152 @@ export const AiMatcherPage: React.FC<AiMatcherPageProps> = ({
                 </>
               ) : (
                 <>
-                  <Sparkles className="w-4 h-4 text-yellow-300" />
-                  <span>Find My Best Job Matches</span>
+                  <Sparkles className="w-4 h-4 text-amber-300" />
+                  <span>Find Opportunities with AI</span>
                 </>
               )}
             </button>
           </div>
         </div>
 
-        {/* Right: Results or Loading */}
-        <div className="lg:col-span-7">
-          {isLoading && (
-            <div className="bg-white rounded-2xl border border-slate-200 p-8 text-center min-h-[440px] flex flex-col items-center justify-center shadow-xs">
-              <div className="w-16 h-16 rounded-2xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600 mb-4">
-                <Brain className="w-8 h-8 animate-pulse" />
-              </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-1">
-                Searching Available Vacancies
-              </h3>
-              <p className="text-xs text-slate-500 max-w-sm mx-auto mb-4 leading-relaxed">
-                Querying active opportunity feeds and evaluating role compatibility with your profile...
-              </p>
-              <div className="flex items-center gap-2 text-xs text-indigo-600 font-medium bg-indigo-50 px-3 py-1.5 rounded-full">
-                <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                <span>Evaluating skill relevance and qualifications</span>
+        {/* Right: AI Match Results Feed */}
+        <div className="lg:col-span-7 space-y-4">
+          {searchSummary && (
+            <div className="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200/80 text-xs text-emerald-950 flex items-start gap-3 shadow-2xs">
+              <Sparkles className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+              <div>
+                <p className="font-bold mb-0.5">FJ Career AI Summary</p>
+                <p className="leading-relaxed">{searchSummary}</p>
+                {providersUsed.length > 0 && (
+                  <p className="text-[10px] text-emerald-700 font-semibold mt-1">
+                    Live Feeds Queried: {providersUsed.join(', ')}
+                  </p>
+                )}
               </div>
             </div>
           )}
 
-          {!isLoading && !hasSearched && (
-            <div className="bg-white rounded-2xl border border-slate-200 p-8 text-center min-h-[440px] flex flex-col items-center justify-center shadow-xs">
-              <Sparkles className="w-12 h-12 text-indigo-500 mx-auto mb-3" />
+          {isLoading ? (
+            <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center shadow-xs">
+              <RefreshCw className="w-8 h-8 text-emerald-600 animate-spin mx-auto mb-3" />
+              <h3 className="text-sm font-bold text-slate-900">
+                Evaluating Live Feeds with Gemini AI...
+              </h3>
+              <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
+                Scanning vacancies from active remote and Nigerian provider APIs to find the highest-scoring matches for your profile.
+              </p>
+            </div>
+          ) : matches.length > 0 ? (
+            <div className="space-y-3">
+              {matches.map((item) => (
+                <div
+                  key={item.jobId}
+                  className="bg-white rounded-2xl border border-slate-200/90 hover:border-emerald-300 hover:shadow-md transition-all p-5"
+                >
+                  <div className="flex items-start justify-between gap-3 mb-2">
+                    <div>
+                      <h3
+                        onClick={() => onSelectJob(item.job)}
+                        className="text-base font-bold text-slate-900 hover:text-emerald-700 transition-colors cursor-pointer"
+                      >
+                        {item.title}
+                      </h3>
+                      <div className="flex items-center gap-2 text-xs text-slate-500 mt-0.5">
+                        <span className="font-semibold text-slate-700">{item.company}</span>
+                        <span>·</span>
+                        <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                        <span>{item.job.location}</span>
+                        {item.job.isRemote && (
+                          <span className="px-1.5 py-0.2 bg-emerald-100 text-emerald-800 rounded font-semibold text-[10px]">
+                            Remote
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <div className="text-right">
+                        <div className="text-lg font-black text-emerald-600 leading-none">
+                          {item.matchScore}%
+                        </div>
+                        <span className="text-[10px] font-bold text-slate-400 uppercase">
+                          Match Score
+                        </span>
+                      </div>
+
+                      <button
+                        onClick={() => onToggleSave(item.job)}
+                        className={`p-2 rounded-lg cursor-pointer ${
+                          savedJobIds.has(item.job.id)
+                            ? 'text-emerald-600 bg-emerald-50'
+                            : 'text-slate-400 hover:text-emerald-600'
+                        }`}
+                      >
+                        <Bookmark
+                          className={`w-4 h-4 ${savedJobIds.has(item.job.id) ? 'fill-emerald-600' : ''}`}
+                        />
+                      </button>
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-slate-600 bg-slate-50 p-2.5 rounded-xl border border-slate-100 mb-3 leading-relaxed">
+                    <strong className="text-slate-700">Why it matches: </strong>
+                    {item.reason}
+                  </p>
+
+                  <div className="flex flex-wrap items-center gap-1.5 mb-3">
+                    {item.matchingSkills.map((s) => (
+                      <span
+                        key={s}
+                        className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-100 text-[10px] font-bold"
+                      >
+                        ✓ {s}
+                      </span>
+                    ))}
+                    {item.missingSkills.map((s) => (
+                      <span
+                        key={s}
+                        className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-medium"
+                      >
+                        + {s}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-xs">
+                    <span className="text-[11px] text-slate-500">
+                      Source: {item.job.sourceAttribution}
+                    </span>
+                    <a
+                      href={item.applicationUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-900 hover:bg-emerald-600 text-white rounded-lg font-bold text-xs shadow-2xs transition-colors"
+                    >
+                      <span>Apply on Provider Portal</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : hasSearched ? (
+            <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center shadow-xs">
+              <Brain className="w-10 h-10 text-slate-300 mx-auto mb-2" />
+              <h3 className="text-sm font-bold text-slate-800">No Matching Vacancies Found</h3>
+              <p className="text-xs text-slate-500 max-w-sm mx-auto mt-1 mb-4">
+                Try widening your prompt keywords or adjusting preferred locations to explore more opportunities.
+              </p>
+            </div>
+          ) : (
+            <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center shadow-xs">
+              <Sparkles className="w-10 h-10 text-emerald-500 mx-auto mb-3" />
               <h3 className="text-base font-bold text-slate-900 mb-1">
                 Ready for AI Job Discovery
               </h3>
-              <p className="text-xs text-slate-500 max-w-sm mx-auto mb-5 leading-relaxed">
-                Enter your desired role or choose a prompt to search live opportunities. Every recommendation corresponds to a genuine live job vacancy.
+              <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed mb-4">
+                Enter your desired career focus on the left, or click one of the suggested prompts above to begin discovering opportunities matched to your exact profile.
               </p>
-              <button
-                onClick={() => handleRunAiSearch()}
-                className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-xs transition-colors inline-flex items-center gap-1.5"
-              >
-                <Sparkles className="w-4 h-4 text-yellow-300" />
-                <span>Search Live Opportunities</span>
-              </button>
-            </div>
-          )}
-
-          {!isLoading && hasSearched && matches.length === 0 && (
-            <div className="bg-white rounded-2xl border border-slate-200 p-8 text-center min-h-[380px] flex flex-col items-center justify-center shadow-xs">
-              <AlertTriangle className="w-10 h-10 text-amber-500 mx-auto mb-2" />
-              <h3 className="text-base font-bold text-slate-900 mb-1">No Vacancies Returned</h3>
-              <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
-                The external job providers currently returned no open vacancies for this exact query. Try broadening your keywords (e.g. "Software Developer" or "Analyst").
-              </p>
-            </div>
-          )}
-
-          {!isLoading && hasSearched && matches.length > 0 && (
-            <div className="space-y-4">
-              {/* Summary */}
-              {searchSummary && (
-                <div className="p-4 rounded-xl bg-indigo-50/80 border border-indigo-200 text-xs">
-                  <span className="font-bold text-indigo-900 block mb-1">
-                    AI Match Summary:
-                  </span>
-                  <p className="text-indigo-950 leading-relaxed">{searchSummary}</p>
-                  <div className="mt-2 pt-2 border-t border-indigo-200/60 flex items-center justify-between text-[11px] text-indigo-700">
-                    <span>Source: {providersUsed.filter((p) => !p.includes('key')).join(', ') || 'Live Feed'}</span>
-                    <span className="font-semibold">{matches.length} Matched Opportunities</span>
-                  </div>
-                </div>
-              )}
-
-              {/* Match Cards */}
-              <div className="space-y-3.5">
-                {matches.map((match) => {
-                  const job = match.job;
-                  const isSaved = savedJobIds.has(job.id);
-
-                  return (
-                    <div
-                      key={match.jobId}
-                      className="bg-white rounded-xl border border-slate-200 hover:border-indigo-300 p-5 transition-all shadow-2xs"
-                    >
-                      <div className="flex items-start justify-between gap-3 mb-2">
-                        <div>
-                          <h3
-                            onClick={() => onSelectJob(job)}
-                            className="text-sm sm:text-base font-bold text-slate-900 hover:text-indigo-600 cursor-pointer"
-                          >
-                            {match.title}
-                          </h3>
-                          <div className="flex items-center gap-2 text-xs text-slate-500 mt-0.5">
-                            <span className="font-semibold text-slate-700">{match.company}</span>
-                            <span>·</span>
-                            <span>{job.location}</span>
-                            {job.salary && (
-                              <>
-                                <span>·</span>
-                                <span className="text-emerald-700 font-semibold">{job.salary}</span>
-                              </>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Match Score */}
-                        <div className="px-3 py-1 rounded-full text-xs font-black bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1 shrink-0">
-                          <Sparkles className="w-3 h-3 text-emerald-600" />
-                          <span>{match.matchScore}% Match</span>
-                        </div>
-                      </div>
-
-                      {/* Reason */}
-                      <p className="p-2.5 rounded-lg bg-slate-50 border border-slate-100 text-xs text-slate-700 leading-relaxed mb-3">
-                        <strong className="text-indigo-900">Why this matches: </strong>
-                        {match.reason}
-                      </p>
-
-                      {/* Skills */}
-                      <div className="flex flex-wrap items-center gap-1 mb-3 text-xs">
-                        {match.matchingSkills.map((s) => (
-                          <span
-                            key={s}
-                            className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-100 font-medium text-[11px]"
-                          >
-                            ✓ {s}
-                          </span>
-                        ))}
-                        {match.missingSkills.map((s) => (
-                          <span
-                            key={s}
-                            className="px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-100 font-medium text-[11px]"
-                          >
-                            +{s}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Card Footer */}
-                      <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
-                        <span className="text-[11px] text-slate-400">
-                          Source: {job.sourceAttribution}
-                        </span>
-
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() => onToggleSave(job)}
-                            className={`p-1.5 rounded-lg flex items-center gap-1 ${
-                              isSaved ? 'text-indigo-600 bg-indigo-50 font-bold' : 'text-slate-500 hover:bg-slate-50'
-                            }`}
-                          >
-                            <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'fill-indigo-600' : ''}`} />
-                            <span>{isSaved ? 'Saved' : 'Save'}</span>
-                          </button>
-
-                          <a
-                            href={match.applicationUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg font-bold text-white bg-indigo-600 hover:bg-indigo-700 shadow-2xs"
-                          >
-                            <span>Apply on Portal</span>
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
             </div>
           )}
         </div>

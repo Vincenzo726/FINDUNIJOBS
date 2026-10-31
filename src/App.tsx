@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import { Navbar } from './components/Navbar';
+import { Navbar, ActiveTab } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { SearchAndFilters } from './components/SearchAndFilters';
 import { JobCard } from './components/JobCard';
@@ -8,17 +8,16 @@ import { JobDetailsModal } from './components/JobDetailsModal';
 import { AiMatcherPage } from './components/AiMatcherPage';
 import { DashboardPage } from './components/DashboardPage';
 import { CareerAdvisorPage } from './components/CareerAdvisorPage';
-import { EmployerDashboard } from './components/EmployerDashboard';
 import { AdminDashboard } from './components/AdminDashboard';
 import { AuthModal } from './components/AuthModal';
 import { SavedJobsDrawer } from './components/SavedJobsDrawer';
 import { Footer } from './components/Footer';
 import { NormalizedJob } from './types/job';
-import { ChevronLeft, ChevronRight, RefreshCw, Briefcase, FilterX, Activity, AlertCircle, ShieldCheck } from 'lucide-react';
+import { ChevronLeft, ChevronRight, RefreshCw, Briefcase, FilterX } from 'lucide-react';
 
 function MainAppContent() {
   const { currentUser, userAccount } = useAuth();
-  const [currentTab, setCurrentTab] = useState<'jobs' | 'ai-matcher' | 'dashboard' | 'advisor' | 'employer' | 'admin'>('jobs');
+  const [currentTab, setCurrentTab] = useState<ActiveTab>('jobs');
 
   // Filters state
   const [keyword, setKeyword] = useState('');
@@ -125,6 +124,13 @@ function MainAppContent() {
     setPage(1);
   };
 
+  const scrollToJobs = () => {
+    const el = document.getElementById('jobs-search-section');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   // Filter and sort jobs based on UI taxonomy and level
   const displayedJobs = React.useMemo(() => {
     let result = [...jobs];
@@ -177,7 +183,7 @@ function MainAppContent() {
   }, [jobs, selectedCategory, level, sortBy]);
 
   return (
-    <div className="min-h-screen bg-slate-50/50 flex flex-col font-sans text-slate-800 antialiased selection:bg-indigo-100 selection:text-indigo-900">
+    <div className="min-h-screen bg-slate-50/50 flex flex-col font-sans text-slate-800 antialiased selection:bg-emerald-100 selection:text-emerald-900">
       {/* Top Navigation */}
       <Navbar
         currentTab={currentTab}
@@ -191,48 +197,50 @@ function MainAppContent() {
       />
 
       <main className="flex-1">
-        {/* TAB 1: Real Vacancies Feed matching screenshot layout */}
+        {/* TAB 1: Real Vacancies Feed */}
         {currentTab === 'jobs' && (
           <div>
             <HeroSection
               onQuickAiMatch={() => setCurrentTab('ai-matcher')}
-              onOpenLocations={() => setLocation('Lagos, Nigeria')}
+              onScrollToJobs={scrollToJobs}
             />
 
-            <SearchAndFilters
-              keyword={keyword}
-              setKeyword={setKeyword}
-              location={location}
-              setLocation={setLocation}
-              dateRange={dateRange}
-              setDateRange={setDateRange}
-              level={level}
-              setLevel={setLevel}
-              remoteOnly={remoteOnly}
-              setRemoteOnly={setRemoteOnly}
-              onSearch={() => {
-                setPage(1);
-                fetchJobs();
-              }}
-              totalJobs={totalJobs}
-              selectedCategory={selectedCategory}
-              setSelectedCategory={(cat) => {
-                setSelectedCategory(cat);
-                setPage(1);
-              }}
-              sortBy={sortBy}
-              setSortBy={setSortBy}
-              jobs={jobs}
-            />
+            <div id="jobs-search-section">
+              <SearchAndFilters
+                keyword={keyword}
+                setKeyword={setKeyword}
+                location={location}
+                setLocation={setLocation}
+                dateRange={dateRange}
+                setDateRange={setDateRange}
+                level={level}
+                setLevel={setLevel}
+                remoteOnly={remoteOnly}
+                setRemoteOnly={setRemoteOnly}
+                onSearch={() => {
+                  setPage(1);
+                  fetchJobs();
+                }}
+                totalJobs={totalJobs}
+                selectedCategory={selectedCategory}
+                setSelectedCategory={(cat) => {
+                  setSelectedCategory(cat);
+                  setPage(1);
+                }}
+                sortBy={sortBy}
+                setSortBy={setSortBy}
+                jobs={jobs}
+              />
+            </div>
 
             {/* Live Feed Status Strip */}
             <div className="max-w-5xl mx-auto px-4 sm:px-6 mt-4">
-              <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-xl bg-white border border-slate-200/80 text-[11px] text-slate-500 shadow-2xs">
+              <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-xl bg-white border border-slate-200/90 text-[11px] text-slate-500 shadow-2xs">
                 <div className="flex items-center gap-3">
                   {providersStatus.jobicy?.connected && (
                     <div className="flex items-center gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                      <span className="font-semibold text-slate-700">Active Source: Jobicy Remote Jobs</span>
+                      <span className="font-semibold text-slate-700">Active Source: Jobicy Remote API</span>
                     </div>
                   )}
 
@@ -247,13 +255,13 @@ function MainAppContent() {
                   )}
                 </div>
 
-                <div className="text-indigo-600 font-medium">
-                  {totalJobs > 0 ? `${totalJobs} Live Opportunities Available` : 'Searching Active Feeds...'}
+                <div className="text-emerald-700 font-bold">
+                  {totalJobs > 0 ? `${totalJobs} Real Opportunities Available` : 'Searching Active Feeds...'}
                 </div>
               </div>
             </div>
 
-            {/* Job Listings */}
+            {/* Job Listings Grid */}
             <div className="max-w-5xl mx-auto px-4 sm:px-6 mt-6">
               <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 mb-5">
                 <div className="flex items-center gap-2">
@@ -262,14 +270,14 @@ function MainAppContent() {
                     {Math.min(page * 12, displayedJobs.length)} of {displayedJobs.length} opportunities
                   </span>
                   {isLoadingJobs && (
-                    <RefreshCw className="w-3.5 h-3.5 text-indigo-600 animate-spin" />
+                    <RefreshCw className="w-3.5 h-3.5 text-emerald-600 animate-spin" />
                   )}
                 </div>
 
                 {(keyword || location !== 'All Locations' || remoteOnly || selectedCategory !== 'all' || level !== 'All Levels') && (
                   <button
                     onClick={resetFilters}
-                    className="inline-flex items-center gap-1 text-xs text-indigo-600 hover:text-indigo-800 font-semibold cursor-pointer"
+                    className="inline-flex items-center gap-1 text-xs text-emerald-700 hover:text-emerald-900 font-semibold cursor-pointer"
                   >
                     <FilterX className="w-3.5 h-3.5" />
                     <span>Reset Filters</span>
@@ -279,23 +287,23 @@ function MainAppContent() {
 
               {isLoadingJobs && jobs.length === 0 ? (
                 <div className="py-20 text-center">
-                  <RefreshCw className="w-8 h-8 text-indigo-600 animate-spin mx-auto mb-3" />
+                  <RefreshCw className="w-8 h-8 text-emerald-600 animate-spin mx-auto mb-3" />
                   <p className="text-sm font-semibold text-slate-700">
-                    Loading job opportunities...
+                    Loading verified job opportunities...
                   </p>
                 </div>
               ) : displayedJobs.length === 0 ? (
                 <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center shadow-xs">
                   <Briefcase className="w-12 h-12 text-slate-300 mx-auto mb-3" />
                   <h3 className="text-base font-bold text-slate-800 mb-1">
-                    No Vacancies Found for this Search
+                    No Opportunities Found for this Search
                   </h3>
                   <p className="text-xs text-slate-500 max-w-sm mx-auto mb-5 leading-relaxed">
-                    No current openings match your specific filters. Try broadening your search keywords (e.g. "Software", "Analyst", "Product") or switching location.
+                    No current openings match your specific filters. Try broadening your search keywords or exploring remote options.
                   </p>
                   <button
                     onClick={resetFilters}
-                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-xs transition-colors cursor-pointer"
+                    className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold shadow-xs transition-colors cursor-pointer"
                   >
                     Reset Search Parameters
                   </button>
@@ -346,7 +354,7 @@ function MainAppContent() {
           </div>
         )}
 
-        {/* TAB 2: AI Job Discovery (Gemini 3.8 Flash) */}
+        {/* TAB 2: AI Job Discovery (Gemini AI) */}
         {currentTab === 'ai-matcher' && (
           <AiMatcherPage
             onSelectJob={(j) => setSelectedJob(j)}
@@ -355,7 +363,10 @@ function MainAppContent() {
           />
         )}
 
-        {/* TAB 3: Candidate Hub / Dashboard */}
+        {/* TAB 3: Career Mentor */}
+        {currentTab === 'advisor' && <CareerAdvisorPage />}
+
+        {/* TAB 4: My Dashboard */}
         {currentTab === 'dashboard' && (
           <DashboardPage
             savedJobs={savedJobs}
@@ -366,14 +377,8 @@ function MainAppContent() {
           />
         )}
 
-        {/* TAB 4: Career Advisor */}
-        {currentTab === 'advisor' && <CareerAdvisorPage />}
-
-        {/* TAB 5: Employer Portal */}
-        {currentTab === 'employer' && <EmployerDashboard />}
-
-        {/* TAB 6: Admin Dashboard */}
-        {currentTab === 'admin' && <AdminDashboard />}
+        {/* TAB 5: Admin Console (Only visible if admin role) */}
+        {currentTab === 'admin' && userAccount?.role === 'admin' && <AdminDashboard />}
       </main>
 
       {/* Global Modals */}
@@ -405,6 +410,7 @@ function MainAppContent() {
         onGoToAiMatcher={() => setCurrentTab('ai-matcher')}
         onGoToJobs={() => setCurrentTab('jobs')}
         onGoToAdvisor={() => setCurrentTab('advisor')}
+        onGoToDashboard={() => setCurrentTab('dashboard')}
       />
     </div>
   );

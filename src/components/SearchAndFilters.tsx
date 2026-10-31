@@ -23,7 +23,7 @@ interface SearchAndFiltersProps {
 }
 
 export const TAXONOMY_CATEGORIES = [
-  { id: 'all', label: 'All Categories', keywords: [] },
+  { id: 'all', label: 'All Opportunities', keywords: [] },
   { id: 'tech', label: 'Software & Technology', keywords: ['software', 'developer', 'engineer', 'frontend', 'backend', 'fullstack', 'react', 'python', 'node', 'javascript', 'devops'] },
   { id: 'data', label: 'Data Science & Analytics', keywords: ['data', 'analyst', 'sql', 'machine learning', 'bi', 'analytics', 'tableau'] },
   { id: 'finance', label: 'Banking, Finance & Fintech', keywords: ['finance', 'accounting', 'auditor', 'fintech', 'tax', 'accountant', 'banking'] },
@@ -84,7 +84,7 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
   return (
     <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 space-y-4">
       {/* Search and Filters Card matching screenshot */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-5">
+      <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs p-4 sm:p-5">
         {/* Top Row: Search Input + 3 Dropdowns + Submit Button */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-2.5 mb-4">
           {/* Keyword Search Input */}
@@ -97,8 +97,8 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
               onKeyDown={(e) => {
                 if (e.key === 'Enter') onSearch();
               }}
-              placeholder="Search by keywords (e.g. Software, Data, Marketing, Finance...)"
-              className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
+              placeholder="Search jobs, companies, skills or career opportunities..."
+              className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"
             />
           </div>
 
@@ -108,7 +108,7 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               aria-label="Filter jobs by location"
-              className="w-full pl-3 pr-8 py-2.5 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl text-slate-700 appearance-none focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer"
+              className="w-full pl-3 pr-8 py-2.5 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl text-slate-700 appearance-none focus:outline-none focus:border-emerald-500 transition-colors cursor-pointer"
             >
               {nigerianLocations.map((loc) => (
                 <option key={loc} value={loc}>
@@ -125,7 +125,7 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
               aria-label="Filter jobs by date range"
-              className="w-full pl-3 pr-8 py-2.5 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl text-slate-700 appearance-none focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer"
+              className="w-full pl-3 pr-8 py-2.5 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl text-slate-700 appearance-none focus:outline-none focus:border-emerald-500 transition-colors cursor-pointer"
             >
               <option value="all">All Dates (24h-30d)</option>
               <option value="24h">Past 24 Hours</option>
@@ -141,7 +141,7 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
               value={sortBy}
               onChange={(e) => setSortBy && setSortBy(e.target.value)}
               aria-label="Sort jobs"
-              className="w-full pl-3 pr-8 py-2.5 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl text-slate-700 appearance-none focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer"
+              className="w-full pl-3 pr-8 py-2.5 text-xs sm:text-sm bg-white border border-slate-200 rounded-xl text-slate-700 appearance-none focus:outline-none focus:border-emerald-500 transition-colors cursor-pointer"
             >
               <option value="newest">Sort: Newest</option>
               <option value="oldest">Sort: Oldest</option>
@@ -154,7 +154,7 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
           <div className="md:col-span-1">
             <button
               onClick={onSearch}
-              className="w-full h-full min-h-[38px] py-2 bg-slate-900 hover:bg-indigo-600 text-white font-bold text-xs rounded-xl transition-colors cursor-pointer shadow-xs flex items-center justify-center"
+              className="w-full h-full min-h-[38px] py-2 bg-slate-900 hover:bg-emerald-600 text-white font-bold text-xs rounded-xl transition-colors cursor-pointer shadow-xs flex items-center justify-center"
               title="Search"
             >
               <Search className="w-4 h-4" />
@@ -191,9 +191,8 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
               type="checkbox"
               checked={remoteOnly}
               onChange={(e) => setRemoteOnly(e.target.checked)}
-              className="w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500"
-            >
-            </input>
+              className="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500"
+            />
             <span>Show Only Remote Roles</span>
           </label>
         </div>
@@ -202,7 +201,7 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
       {/* Role Taxonomy Section matching screenshot */}
       <div className="pt-2">
         <div className="text-[11px] font-bold tracking-wider text-slate-500 uppercase mb-2.5">
-          ROLE TAXONOMY
+          CAREER ROLE TAXONOMY
         </div>
         <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none no-scrollbar">
           {TAXONOMY_CATEGORIES.map((cat) => {
@@ -216,7 +215,7 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`whitespace-nowrap inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-indigo-600 text-white shadow-xs'
+                    ? 'bg-emerald-600 text-white shadow-xs'
                     : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
                 }`}
               >
@@ -224,7 +223,7 @@ export const SearchAndFilters: React.FC<SearchAndFiltersProps> = ({
                 <span
                   className={`px-1.5 py-0.5 rounded-md text-[10px] font-bold ${
                     isActive
-                      ? 'bg-indigo-700/80 text-white'
+                      ? 'bg-emerald-700/90 text-white'
                       : 'bg-slate-100 text-slate-600'
                   }`}
                 >

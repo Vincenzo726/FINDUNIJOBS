@@ -47,7 +47,7 @@ export const JobDetailsModal: React.FC<JobDetailsModalProps> = ({
                 }}
               />
             ) : (
-              <div className="w-13 h-13 rounded-xl bg-indigo-600 text-white font-black text-xl flex items-center justify-center shrink-0 shadow-md">
+              <div className="w-13 h-13 rounded-xl bg-emerald-600 text-white font-black text-xl flex items-center justify-center shrink-0 shadow-md">
                 {companyInitials}
               </div>
             )}
@@ -62,7 +62,7 @@ export const JobDetailsModal: React.FC<JobDetailsModalProps> = ({
                     Remote Eligible
                   </span>
                 )}
-                <span className="text-xs font-medium px-2 py-0.5 rounded bg-indigo-50 text-indigo-700">
+                <span className="text-xs font-medium px-2 py-0.5 rounded bg-emerald-50 text-emerald-800">
                   {job.sourceAttribution}
                 </span>
               </div>
@@ -87,7 +87,7 @@ export const JobDetailsModal: React.FC<JobDetailsModalProps> = ({
 
           <button
             onClick={onClose}
-            className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 rounded-lg transition-colors"
+            className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 rounded-lg transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -97,11 +97,11 @@ export const JobDetailsModal: React.FC<JobDetailsModalProps> = ({
         <div className="p-6 overflow-y-auto space-y-6">
           {/* Attribution Notice */}
           <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 text-xs flex items-start gap-2.5">
-            <ShieldCheck className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
+            <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
             <div>
               <p className="font-semibold text-slate-900">Verified Job Opportunity</p>
               <p className="text-slate-600 mt-0.5 leading-relaxed">
-                Indexed from <strong>{job.sourceAttribution}</strong>. Clicking "Apply on Official Portal" redirects directly to the employer or partner application website.
+                Indexed from <strong>{job.sourceAttribution}</strong>. Clicking "Apply on Official Portal" redirects directly to the official employer or partner application website.
               </p>
             </div>
           </div>
@@ -109,9 +109,9 @@ export const JobDetailsModal: React.FC<JobDetailsModalProps> = ({
           {/* Role Description */}
           <div>
             <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-2">
-              Job Description & Details
+              Job Description &amp; Details
             </h4>
-            <div className="text-sm text-slate-700 leading-relaxed whitespace-pre-line bg-slate-50/50 p-4 rounded-xl border border-slate-100">
+            <div className="text-sm text-slate-700 leading-relaxed whitespace-pre-line bg-slate-50/50 p-4 rounded-xl border border-slate-100 font-sans">
               {job.description}
             </div>
           </div>
@@ -120,13 +120,13 @@ export const JobDetailsModal: React.FC<JobDetailsModalProps> = ({
           {job.skills.length > 0 && (
             <div>
               <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-2.5">
-                Target Sectors & Skills
+                Target Sectors &amp; Skills
               </h4>
               <div className="flex flex-wrap gap-2">
                 {job.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="px-3 py-1 bg-indigo-50 border border-indigo-200 text-indigo-700 rounded-lg text-xs font-semibold"
+                    className="px-3 py-1 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-lg text-xs font-semibold"
                   >
                     {skill}
                   </span>
@@ -141,21 +141,21 @@ export const JobDetailsModal: React.FC<JobDetailsModalProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={() => onToggleSave(job)}
-              className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold border transition-colors ${
+              className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold border transition-colors cursor-pointer ${
                 isSaved
-                  ? 'bg-indigo-50 border-indigo-300 text-indigo-700'
+                  ? 'bg-emerald-50 border-emerald-300 text-emerald-800'
                   : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-100'
               }`}
             >
-              <Bookmark className={`w-4 h-4 ${isSaved ? 'fill-indigo-600' : ''}`} />
+              <Bookmark className={`w-4 h-4 ${isSaved ? 'fill-emerald-600' : ''}`} />
               <span>{isSaved ? 'Saved to Bookmarks' : 'Save Opportunity'}</span>
             </button>
 
             <button
               onClick={() => onRunAiMatch(job)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white border border-indigo-200 text-indigo-700 hover:bg-indigo-50 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white border border-emerald-200 text-emerald-800 hover:bg-emerald-50 transition-colors cursor-pointer"
             >
-              <Sparkles className="w-4 h-4 text-indigo-500" />
+              <Sparkles className="w-4 h-4 text-amber-500" />
               <span>AI Candidate Check</span>
             </button>
           </div>
@@ -163,7 +163,7 @@ export const JobDetailsModal: React.FC<JobDetailsModalProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={onClose}
-              className="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900 rounded-xl"
+              className="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900 rounded-xl cursor-pointer"
             >
               Close
             </button>
@@ -172,7 +172,7 @@ export const JobDetailsModal: React.FC<JobDetailsModalProps> = ({
               href={job.applicationUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 shadow-md transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-md transition-colors"
             >
               <span>Apply on Official Portal</span>
               <ExternalLink className="w-3.5 h-3.5" />

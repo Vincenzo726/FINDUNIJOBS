@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { X, Lock, Mail, User, ShieldCheck, AlertCircle, ArrowRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { UserRole } from '../types/job';
+import { Logo } from './Logo';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -16,8 +16,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [fullName, setFullName] = useState('');
-  const [role, setRole] = useState<UserRole>('job_seeker');
-  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -45,7 +44,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
           setLoading(false);
           return;
         }
-        await register(fullName, email, password, role);
+        await register(fullName, email, password, 'job_seeker');
         onClose();
       } else if (mode === 'forgot') {
         await resetPassword(email);
@@ -85,10 +84,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
       <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 relative">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-700 rounded-lg"
+          className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-slate-700 rounded-lg cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
+
+        <div className="mb-4">
+          <Logo variant="horizontal" size="sm" />
+        </div>
 
         {/* Tab Selector */}
         {mode !== 'forgot' && (
@@ -98,9 +101,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
                 setMode('login');
                 setError(null);
               }}
-              className={`flex-1 pb-3 text-sm font-bold border-b-2 transition-colors ${
+              className={`flex-1 pb-3 text-sm font-bold border-b-2 transition-colors cursor-pointer ${
                 mode === 'login'
-                  ? 'border-indigo-600 text-indigo-600'
+                  ? 'border-emerald-600 text-emerald-700'
                   : 'border-transparent text-slate-400 hover:text-slate-600'
               }`}
             >
@@ -111,9 +114,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
                 setMode('register');
                 setError(null);
               }}
-              className={`flex-1 pb-3 text-sm font-bold border-b-2 transition-colors ${
+              className={`flex-1 pb-3 text-sm font-bold border-b-2 transition-colors cursor-pointer ${
                 mode === 'register'
-                  ? 'border-indigo-600 text-indigo-600'
+                  ? 'border-emerald-600 text-emerald-700'
                   : 'border-transparent text-slate-400 hover:text-slate-600'
               }`}
             >
@@ -157,7 +160,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
                   placeholder="e.g. Babatunde Adeleke"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500"
+                  className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
                 />
               </div>
             </div>
@@ -173,7 +176,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
                 placeholder="you@domain.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500"
+                className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
               />
             </div>
           </div>
@@ -186,7 +189,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
                   <button
                     type="button"
                     onClick={() => setMode('forgot')}
-                    className="text-[11px] text-indigo-600 hover:text-indigo-800"
+                    className="text-[11px] text-emerald-600 hover:text-emerald-800 cursor-pointer font-medium"
                   >
                     Forgot Password?
                   </button>
@@ -200,7 +203,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500"
+                  className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
                 />
               </div>
             </div>
@@ -217,38 +220,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
                   placeholder="••••••••"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500"
+                  className="w-full pl-9 pr-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
                 />
-              </div>
-            </div>
-          )}
-
-          {mode === 'register' && (
-            <div>
-              <label className="block font-bold text-slate-700 mb-1">Account Role</label>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => setRole('job_seeker')}
-                  className={`p-2.5 rounded-lg border text-xs font-semibold text-center transition-colors ${
-                    role === 'job_seeker'
-                      ? 'border-indigo-600 bg-indigo-50 text-indigo-700'
-                      : 'border-slate-200 text-slate-600 hover:bg-slate-50'
-                  }`}
-                >
-                  Job Seeker / NYSC
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setRole('employer')}
-                  className={`p-2.5 rounded-lg border text-xs font-semibold text-center transition-colors ${
-                    role === 'employer'
-                      ? 'border-indigo-600 bg-indigo-50 text-indigo-700'
-                      : 'border-slate-200 text-slate-600 hover:bg-slate-50'
-                  }`}
-                >
-                  Employer / Recruiter
-                </button>
               </div>
             </div>
           )}
@@ -259,10 +232,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
                 type="checkbox"
                 checked={acceptedTerms}
                 onChange={(e) => setAcceptedTerms(e.target.checked)}
-                className="w-4 h-4 text-indigo-600 rounded border-slate-300 mt-0.5"
+                className="w-4 h-4 text-emerald-600 rounded border-slate-300 mt-0.5"
               />
               <span>
-                I accept the Nigerian NDPR compliance, platform Terms of Service, and privacy terms.
+                I agree to the Terms of Service and Nigeria Data Protection Act (NDPA) privacy policy.
               </span>
             </label>
           )}
@@ -270,12 +243,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-bold rounded-xl transition-colors shadow-md mt-2"
+            className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-bold rounded-xl transition-colors shadow-xs mt-2 cursor-pointer"
           >
             {loading ? (
               <span>Authenticating...</span>
             ) : mode === 'login' ? (
-              'Sign In to Account'
+              'Sign In'
             ) : mode === 'register' ? (
               'Create Free Account'
             ) : (
@@ -328,7 +301,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
                 setError(null);
                 setSuccessMsg(null);
               }}
-              className="text-xs text-indigo-600 hover:underline font-semibold"
+              className="text-xs text-emerald-600 hover:underline font-semibold cursor-pointer"
             >
               Return to Sign In
             </button>

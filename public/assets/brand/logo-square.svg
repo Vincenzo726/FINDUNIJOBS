@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="sqBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B132B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    <linearGradient id="sqGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34D399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="sqGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="100%" stop-color="#F59E0B" />
+    </linearGradient>
+    <filter id="sqGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#059669" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Background container -->
+  <rect width="512" height="512" rx="112" fill="url(#sqBgGrad)"/>
+  <rect x="4" y="4" width="504" height="504" rx="108" stroke="#1E293B" stroke-width="4"/>
+
+  <!-- Centered Emblem -->
+  <g transform="translate(106, 95)" filter="url(#sqGlow)">
+    <!-- Letter 'F' stylized -->
+    <path d="M40 50 C40 38.954 48.954 30 60 30 H190 C201.046 30 210 38.954 210 50 C210 61.046 201.046 70 190 70 H90 V125 H165 C176.046 125 185 133.954 185 145 C185 156.046 176.046 165 165 165 H90 V260 C90 271.046 81.046 280 70 280 C58.954 280 40 271.046 40 260 V50 Z" fill="url(#sqGreen)"/>
+
+    <!-- Letter 'J' interlock & upward rise -->
+    <path d="M150 120 C161.046 120 170 128.954 170 140 V205 C170 238.137 143.137 265 110 265 C88 265 68 250 59 231 C53 218 58 203 71 197 C84 191 99 196 105 208 C107 212 110 215 110 215 C115.5 215 120 210.5 120 205 V140 C120 128.954 128.954 120 140 120 Z" fill="#FFFFFF"/>
+
+    <!-- Upward trajectory arrow -->
+    <path d="M195 70 L250 70 C258 70 265 63 265 55 C265 47 258 40 250 40 L195 40 Z" fill="url(#sqGold)"/>
+    <polygon points="245,20 280,55 245,90" fill="url(#sqGold)"/>
+
+    <!-- Spark Dot -->
+    <circle cx="230" cy="180" r="16" fill="url(#sqGold)"/>
+  </g>
+
+  <!-- Bottom Brand Text -->
+  <text x="256" y="445" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="900" font-size="34" letter-spacing="0.08em" fill="#F8FAFC">
+    FJ FINDUNIJOB
+  </text>
+</svg>

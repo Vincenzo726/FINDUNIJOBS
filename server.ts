@@ -465,6 +465,115 @@ TASK:
   }
 });
 
+// POST /api/ai/advisor: Dedicated conversational advisor for Nigerian students & graduates
+app.post('/api/ai/advisor', async (req: Request, res: Response) => {
+  try {
+    const { message = '', context } = req.body;
+    if (!message.trim()) {
+      res.status(400).json({ error: 'Message cannot be empty' });
+      return;
+    }
+
+    const hasApiKey = Boolean(
+      process.env.GEMINI_API_KEY &&
+      process.env.GEMINI_API_KEY.trim() !== '' &&
+      process.env.GEMINI_API_KEY.trim() !== 'MY_GEMINI_API_KEY'
+    );
+
+    if (!hasApiKey) {
+      res.json({
+        reply: `Hello! As your FJ Career AI assistant, here is a practical recommendation for your query: Always focus on building 2-3 tangible projects with measurable results, tailor your CV keywords to the job description, and showcase initiative through internships or open-source work. (For deeper generative AI feedback, configure your GEMINI_API_KEY in Secrets).`,
+      });
+      return;
+    }
+
+    const systemPrompt = `You are "FJ Career AI", the intelligent career companion for FJ FindUniJob.
+FJ FindUniJob is a job discovery and AI career assistant platform specifically tailored for Nigerian university students, undergraduates, NYSC corp members, fresh graduates, and early-career professionals, as well as professionals seeking remote roles.
+Your mission is to provide encouraging, highly structured, practical, and culturally informed career guidance.
+Never pretend to be a recruitment or staffing agency. You empower job seekers with skills, CV advice, interview preparation, and strategic opportunity guidance.
+Keep answers formatted with crisp bullet points, bold key terms, and actionable next steps.`;
+
+    const aiRes = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: message,
+      config: {
+        systemInstruction: systemPrompt,
+      },
+    });
+
+    res.json({ reply: aiRes.text || 'Keep advancing your skills and applying consistently.' });
+  } catch (err: any) {
+    console.error('Advisor endpoint error:', err);
+    res.json({
+      reply: 'Structure your university or early-career experiences around tangible impact. Highlight tools, project outcomes, and specific contributions to stand out in today\'s competitive market.',
+    });
+  }
+});
+
+// POST /api/ai/career-tools: Generates CV feedback, summaries, interview prep, and cover letters
+app.post('/api/ai/career-tools', async (req: Request, res: Response) => {
+  try {
+    const { toolType, payload } = req.body;
+    const hasApiKey = Boolean(
+      process.env.GEMINI_API_KEY &&
+      process.env.GEMINI_API_KEY.trim() !== '' &&
+      process.env.GEMINI_API_KEY.trim() !== 'MY_GEMINI_API_KEY'
+    );
+
+    if (!hasApiKey) {
+      res.json({
+        result: `Practical guidance for ${toolType}: Ensure your career materials emphasize concrete achievements, verifiable skills, and direct alignment with Nigerian industry and remote standards.`,
+      });
+      return;
+    }
+
+    let prompt = '';
+    if (toolType === 'cv_review') {
+      prompt = `Review this candidate CV / profile for early career opportunities in Nigeria & remote:
+${JSON.stringify(payload)}
+Provide:
+1. Top Strengths (3 bullet points)
+2. ATS Optimization Tips (3 bullet points)
+3. Action Verbs & Project Presentation improvements`;
+    } else if (toolType === 'summary_generator') {
+      prompt = `Write 3 compelling, professional bio summaries (1 concise paragraph each) for a candidate with:
+Role: ${payload.targetRole || 'Software / Data / Business Associate'}
+Education: ${payload.university || 'Nigerian University Graduate'}
+Skills: ${payload.skills || 'Analytical, Problem-solving'}
+Tone: Modern, confident, early-career professional.`;
+    } else if (toolType === 'interview_prep') {
+      prompt = `Generate 4 realistic interview questions and STAR method sample answer frameworks for:
+Target Role: ${payload.targetRole || 'Associate'}
+Industry: ${payload.industry || 'Tech / Finance / Business in Nigeria'}
+Include technical/situational questions common in Nigerian corporate and international remote interviews.`;
+    } else if (toolType === 'cover_letter') {
+      prompt = `Draft a compelling, professional cover letter tailored for:
+Role: ${payload.jobTitle || 'Graduate Trainee'}
+Company: ${payload.company || 'Prospective Employer'}
+Candidate Name: ${payload.candidateName || 'Candidate'}
+Background: ${payload.background || 'Recent Nigerian university graduate with strong foundational training'}
+Tone: Professional, enthusiastic, articulate, highlighting adaptability and eagerness to learn.`;
+    } else {
+      prompt = `Provide actionable early career advice for: ${JSON.stringify(payload)}`;
+    }
+
+    const aiRes = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: prompt,
+      config: {
+        systemInstruction: 'You are FJ Career AI, the intelligent career companion for FJ FindUniJob. Deliver high-value, crisp, actionable career outputs.',
+      },
+    });
+
+    res.json({ result: aiRes.text || 'Career analysis completed.' });
+  } catch (err: any) {
+    console.error('Career tools error:', err);
+    res.json({
+      result: 'Always highlight your key capabilities, demonstrable projects, and quantifiable accomplishments.',
+    });
+  }
+});
+
 // Start server
 async function startServer() {
   if (process.env.NODE_ENV === 'production') {

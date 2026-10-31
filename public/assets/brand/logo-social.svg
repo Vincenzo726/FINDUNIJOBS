@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="socBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B132B" />
+      <stop offset="50%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#064E3B" />
+    </linearGradient>
+    <linearGradient id="socGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34D399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="socGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="100%" stop-color="#F59E0B" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#socBg)"/>
+
+  <!-- Decorative geometric tech curves -->
+  <circle cx="1100" cy="100" r="300" stroke="#059669" stroke-width="2" opacity="0.15" />
+  <circle cx="1100" cy="100" r="450" stroke="#059669" stroke-width="1.5" opacity="0.08" />
+  <circle cx="100" cy="550" r="250" stroke="#F59E0B" stroke-width="1.5" opacity="0.1" />
+
+  <!-- Logo Mark -->
+  <g transform="translate(100, 100)">
+    <rect width="110" height="110" rx="26" fill="#1E293B" stroke="#334155" stroke-width="3"/>
+    <g transform="translate(14, 14)">
+      <path d="M12 12 C12 8.7 14.7 6 18 6 H50 C53.3 6 56 8.7 56 12 C56 15.3 53.3 18 50 18 H24 V34 H44 C47.3 34 50 36.7 50 40 C50 43.3 47.3 46 44 46 H24 V70 C24 73.3 21.3 76 18 76 C14.7 76 12 73.3 12 70 V12 Z" fill="url(#socGreen)" />
+      <path d="M40 34 C43.3 34 46 36.7 46 40 V58 C46 64 41 68 34 68 C28 68 24 64 22 60 C20.5 57 22 53.5 25 52 C28 50.5 31.5 52 33 55 C33.5 56 34 56.5 34 56.5 C34.8 56.5 35.5 55.8 35.5 55 V40 C35.5 36.7 38.2 34 40 34 Z" fill="#FFFFFF" />
+      <polygon points="62,6 74,15 62,24" fill="url(#socGold)" />
+      <circle cx="66" cy="46" r="5" fill="url(#socGold)" />
+    </g>
+  </g>
+
+  <!-- Brand Typography -->
+  <text x="240" y="165" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="900" font-size="44" letter-spacing="-0.03em">
+    <tspan fill="#34D399">FJ </tspan>
+    <tspan fill="#FFFFFF">FindUniJob</tspan>
+  </text>
+  <text x="240" y="195" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="700" font-size="14" letter-spacing="0.12em" fill="#FBBF24">
+    CAREER DISCOVERY &amp; AI OPPORTUNITY PLATFORM
+  </text>
+
+  <!-- Big Hero Headline -->
+  <text x="100" y="320" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="900" font-size="54" letter-spacing="-0.03em" fill="#FFFFFF">
+    Find Opportunities. Build Your Future.
+  </text>
+
+  <text x="100" y="390" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="500" font-size="24" fill="#94A3B8">
+    The dedicated platform for Nigerian students, NYSC members &amp; graduates.
+  </text>
+
+  <!-- Feature Pill Tags -->
+  <g transform="translate(100, 450)">
+    <rect width="270" height="52" rx="14" fill="#1E293B" stroke="#334155"/>
+    <text x="135" y="33" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="700" font-size="16" fill="#34D399">
+      ✓ Real Verified Job Feeds
+    </text>
+  </g>
+  <g transform="translate(390, 450)">
+    <rect width="270" height="52" rx="14" fill="#1E293B" stroke="#334155"/>
+    <text x="135" y="33" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="700" font-size="16" fill="#FBBF24">
+      ⚡ Gemini AI Job Matcher
+    </text>
+  </g>
+  <g transform="translate(680, 450)">
+    <rect width="270" height="52" rx="14" fill="#1E293B" stroke="#334155"/>
+    <text x="135" y="33" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="700" font-size="16" fill="#FFFFFF">
+      🎯 Early-Career Mentorship
+    </text>
+  </g>
+
+  <!-- Bottom Link -->
+  <text x="100" y="565" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="600" font-size="16" fill="#64748B">
+    fj-findunijob.web.app • Powered by Gemini AI
+  </text>
+</svg>

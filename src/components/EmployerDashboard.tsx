@@ -91,15 +91,15 @@ export const EmployerDashboard: React.FC = () => {
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
         <div>
-          <div className="flex items-center gap-2 text-indigo-600 font-bold text-xs uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-emerald-600 font-bold text-xs uppercase tracking-wider mb-1">
             <Building className="w-4 h-4" />
-            <span>Employer Recruitment Portal</span>
+            <span>Opportunity Submission Portal</span>
           </div>
           <h1 className="text-2xl font-black text-slate-900 tracking-tight">
-            Manage Vacancies & University Talent
+            Manage Vacancy Listings
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            Post opportunities targeting Nigerian graduates, interns, NYSC members, and early-career talent.
+            Submit verified opportunities open to Nigerian students, interns, NYSC members, and early-career talent.
           </p>
         </div>
 

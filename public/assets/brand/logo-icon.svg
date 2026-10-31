@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="fjGreenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="fjNavyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    <linearGradient id="fjGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24" />
+      <stop offset="100%" stop-color="#F59E0B" />
+    </linearGradient>
+    <filter id="fjShadow" x="-10%" y="-10%" width="125%" height="125%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#059669" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Background rounded base -->
+  <rect width="120" height="120" rx="28" fill="#F8FAFC"/>
+  <rect x="1" y="1" width="118" height="118" rx="27" stroke="#E2E8F0" stroke-width="2"/>
+
+  <!-- Geometric Interlocking 'FJ' with Upward Career Discovery Vector -->
+  <g transform="translate(18, 18)" filter="url(#fjShadow)">
+    <!-- 'F' Top Arm and Stem -->
+    <path d="M12 14 C12 10.686 14.686 8 18 8 H52 C55.314 8 58 10.686 58 14 C58 17.314 55.314 20 52 20 H24 V34 H44 C47.314 34 50 36.686 50 40 C50 43.314 47.314 46 44 46 H24 V70 C24 73.314 21.314 76 18 76 C14.686 76 12 73.314 12 70 V14 Z" fill="url(#fjGreenGrad)" />
+
+    <!-- 'J' Dynamic Ascending Curve -->
+    <path d="M42 36 C45.314 36 48 38.686 48 42 V58 C48 65.732 41.732 72 34 72 C28.5 72 23.8 68.8 21.5 64.2 C19.9 61.2 21 57.5 24 55.9 C27 54.4 30.7 55.5 32.2 58.5 C32.7 59.4 33.3 60 34 60 C35.1 60 36 59.1 36 58 V42 C36 38.686 38.686 36 42 36 Z" fill="url(#fjNavyGrad)" />
+
+    <!-- Upward Career Trajectory Arrow / AI Spark in Golden Yellow -->
+    <path d="M54 18 L72 18 C74.2 18 76 16.2 76 14 C76 11.8 74.2 10 72 10 L54 10 Z" fill="url(#fjGoldGrad)" opacity="0.9" />
+    <polygon points="68,6 78,14 68,22" fill="url(#fjGoldGrad)" />
+
+    <!-- Discovery Lens Accent Dot -->
+    <circle cx="68" cy="48" r="5" fill="url(#fjGoldGrad)" />
+  </g>
+</svg>
